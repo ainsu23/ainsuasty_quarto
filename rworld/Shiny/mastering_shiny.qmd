@@ -1,0 +1,12 @@
+---
+title: Mastering Shiny
+subtitle: "By Hadley Wickham"
+description: "Solution to exercices mastering Shiny's book." 
+image: ../../image/mastering_shiny.jpg
+categories: ["modules"]
+---
+
+This application solves exercises proposed on each chapter of the book.
+
+ -    [Go to App](https://afinsuasty.shinyapps.io/mastering_shiny/)
+ -    [Check code here](https://github.com/ainsu23/shiny-examples)

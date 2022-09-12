@@ -1,1 +1,17 @@
 /* css styles */
+
+/* Nombre en index */
+h1 {
+  font-size: 26px;
+}
+
+/* imagen en index */
+img:hover {
+  transform: scaleX(-1);
+  filter: drop-shadow(8px 8px 10px green);
+}
+
+/* subtitulos en listing contents */
+.card-subtitle {
+  font-size: small;
+}

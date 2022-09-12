@@ -2,16 +2,24 @@ project:
   type: website
 
 website:
-  title: "mysite"
+  title: "ainsuasty"
+  image: image/Insu.png
+  favicon: image/favicon-32x32.png
+  site-url: ainsuasty.com
+  google-analytics: "UA-176122758-1" 
+  repo-url: https://github.com/ainsu23/ainsuasty_quarto.git
   navbar:
-    left:
+    left: 
       - href: index.qmd
         text: Home
-      - about.qmd
-
+      - href: rworld.qmd
+        text: "My R World"
 format:
   html:
-    theme: cosmo
+   # theme: cosmo
+    theme:
+      light: flatly
+      dark: darkly
     css: styles.css
     toc: true
 

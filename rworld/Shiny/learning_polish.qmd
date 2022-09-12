@@ -1,0 +1,20 @@
+---
+title: Learning Polish
+subtitle: "App with interactive games."
+description: "App created to learn polish in an interactive way with games developed" 
+image: ../../image/learning_polish.jpg
+categories: ["firebase", "API"]
+---
+
+ -    [Go to App](https://afinsuasty.shinyapps.io/learning_polish/)
+ -    [Check code here](https://github.com/ainsu23/shiny-examples)
+ 
+This application contains different modules:
+
+ -    Vocabulary: Connects with `google firebase` where data for this app is stored. 
+       In that way, words can be added, deleted or modified in real time using R functions
+      
+ -    Games: Contains two games 
+      -   Bucket list: Drag and drop words into categories
+      -   Guess word: Guess word in the correct order
+

@@ -1,0 +1,17 @@
+---
+title: Data Structures
+subtitle: "App with application of Data Structures"
+description: "App to develop data structure applications" 
+image: ../../image/data_structures.jpg
+categories: ["R6Class", "Data Structures"]
+---
+
+ -    [Go to App](https://afinsuasty.shinyapps.io/data-structures/)
+ -    [Check code here](https://github.com/ainsu23/shiny-examples)
+ 
+The idea behind this application is to learn and create apps from data structures
+field. 
+
+**Double linked list** representation with random words. The user should guess the 
+word from the wordcloud, the letters introduced are compared to a linkedlist 
+saved in a `R6Class`.

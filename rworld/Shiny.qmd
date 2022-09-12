@@ -1,0 +1,19 @@
+---
+title: "Shiny"
+subtitle: "Apps"
+description: "Dashboards created with Shiny library for R"
+image: ../image/shiny.png
+listing:
+  contents: Shiny
+  type: grid
+  categories: unnumbered
+  fields: 
+    - title
+    - subtitle
+    - image
+    - categories
+    - description
+format: 
+  html: 
+    css: ../css/imagenes.css
+---

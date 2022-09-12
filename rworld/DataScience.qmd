@@ -1,0 +1,12 @@
+---
+title: "Data Science"
+subtitle: "With tidymodels"
+description: "Machine learning models developed with tidymodels"
+adjusting: c
+category: Models
+image: ../image/ds.png
+listing: 
+  contents: DataScience
+  type: grid
+  categories: true
+---

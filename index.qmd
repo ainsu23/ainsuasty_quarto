@@ -1,7 +1,28 @@
 ---
-title: "mysite"
+title: "Andrés Felipe Insuasty Ch."
+subtitle: "Data Scientist"
+image: image/ainsuasty.png
+about: 
+  template: trestles
+  image-width: 10em
+  image-shape: round
+  links:
+   - icon: twitter
+     text: twitter
+     href: https://twitter.com/Afinsuasty/
+   - icon: github
+     text: Github
+     href: https://github.com/ainsu23
+   - icon: linkedin 
+     text: LinkedIn
+     href: https://www.linkedin.com/in/afinsuasty/
+css: styles.css
 ---
 
-This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Hola | Hi | Cześć
+
+I love learn and share what I have learned, for that reason, I share with you
+personal experiences and profesional projects developing `Data Science`.
+
+

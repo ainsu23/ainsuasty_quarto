@@ -1,16 +1,86 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "mysite",
+    "title": "Andrés Felipe Insuasty Ch.",
     "section": "",
-    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "I love learn and share what I have learned, for that reason, I share with you personal experiences and profesional projects developing Data Science."
+  },
+  {
+    "objectID": "rworld/Blog.html",
+    "href": "rworld/Blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\nCategories\n\n\nReading Time\n\n\n\n\n\n\nData Structures with R6Class\n\n\nImplement data structures with R6Class\n\n\nR6Class,Data Structures\n\n\n3 min\n\n\n\n\nHow to interact with firebase from a shinyapp\n\n\nFind how to use httr to access or modify stored data in firebase.\n\n\nFirebase\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "rworld/DataScience.html",
+    "href": "rworld/DataScience.html",
+    "title": "Data Science",
+    "section": "",
+    "text": "No matching items"
+  },
+  {
+    "objectID": "rworld/Shiny.html",
+    "href": "rworld/Shiny.html",
+    "title": "Shiny",
+    "section": "",
+    "text": "App with application of Data Structures\n\n\n\nR6Class\n\n\nData Structures\n\n\n\nApp to develop data structure applications\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApp with interactive games.\n\n\n\nfirebase\n\n\nAPI\n\n\n\nApp created to learn polish in an interactive way with games developed\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBy Hadley Wickham\n\n\n\nmodules\n\n\n\nSolution to exercices mastering Shiny’s book.\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "rworld.html",
+    "href": "rworld.html",
+    "title": "RWorld",
+    "section": "",
+    "text": "R, Python, SQL, among others\n\n\nGeneral tips for R, Git, SQL or python.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWith tidymodels\n\n\nMachine learning models developed with tidymodels\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApps\n\n\nDashboards created with Shiny library for R\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "rworld/Shiny/mastering_shiny.html",
+    "href": "rworld/Shiny/mastering_shiny.html",
+    "title": "Mastering Shiny",
+    "section": "",
+    "text": "Go to App\nCheck code here"
+  },
+  {
+    "objectID": "Shiny/mastering_shiny.html",
+    "href": "Shiny/mastering_shiny.html",
+    "title": "Mastering Shiny",
+    "section": "",
+    "text": "Check Github code here"
+  },
+  {
+    "objectID": "rworld/Shiny/learning_polish.html",
+    "href": "rworld/Shiny/learning_polish.html",
+    "title": "Learning Polish",
+    "section": "",
+    "text": "This application contains different modules:\n\nVocabulary: Connects with google firebase where data for this app is stored. In that way, words can be added, deleted or modified in real time using R functions\nGames: Contains two games\n\nBucket list: Drag and drop words into categories\nGuess word: Guess word in the correct order"
+  },
+  {
+    "objectID": "rworld/Shiny/data_structures.html",
+    "href": "rworld/Shiny/data_structures.html",
+    "title": "Data Structures",
+    "section": "",
+    "text": "The idea behind this application is to learn and create apps from data structures field.\nDouble linked list representation with random words. The user should guess the word from the wordcloud, the letters introduced are compared to a linkedlist saved in a R6Class."
+  },
+  {
+    "objectID": "rworld/Blog/data_structures.html",
+    "href": "rworld/Blog/data_structures.html",
+    "title": "Data Structures with R6Class",
+    "section": "",
+    "text": "This post is oriented to create classes that recreates data structures and explanaition for each. Knowing this may help you improve as a programmer because is the basic of each language you would work R, python, c, javascript, others..\nData structures to work with:\n\nArrays\nLinkedLists\nHashtable\nStacks\nQueues\nTrees\nGraphs\n\n\nArraysLinkedLists\n\n\nR manages dinamics vectors, this means that one index can be added to an existed vector. For the purpose of this blog I would create a class R6Class to simmulate an Array. Within this array, you would be able to get an index, push a new item at the end, pop last item, delete an index.\n\nmyarray <- R6::R6Class(\n  classname = \"myarray\",\n  public = list(\n    initialize = function() {\n      self$array_length <- 0\n      self$array_data <- c()\n    },\n    array_length = NULL,\n    array_data = NULL,\n    get_value = function(index) {\n      return(self$array_data[index])\n    },\n    push = function(value) {\n      self$array_data[self$array_length + 1] = value\n      self$array_length <- length(self$array_data)\n    },\n    pop = function() {\n      lastItem <- self$array_data[self$array_length]\n      self$array_data <- self$array_data[-self$array_length]\n      self$array_length <- length(self$array_data)\n      return(lastItem)\n    },\n    delete = function(index) {\n      self$array_data <- self$array_data[-index]\n      self$array_length <- length(self$array_data)\n    }\n  )\n)\nmyarray = myarray$new()\nmyarray$push(2)\nmyarray$pop()\n\n\n\nLinkedLists are a set of nodes (that contains information related to where the data is stored in pc memory (pointers) and which node is next or previous). Until my understanding, R does not have linkedList in its implementation, list are manage as vectors or arrays. There exists 2 types or linked lists, one is single which it has just one direction and double which has two directions.\nNevertheless, let’s implement an double linkedList with R6Class:\n\nmy_Linked_List <- R6::R6Class(\n  classname = \"linkedList\",\n  public = list(\n    # Initialize with the first value of the linkedList, .next would be NULL\n    initialize = function(value) {\n      self$list_pointer <- list(new.env())\n      self$list_pointer[[1]]$value <- value\n      self$index_head <- 1\n      self$index_tail <- 1\n      self$list_pointer[[1]]$index_next <- NULL\n      self$list_pointer[[1]]$index_prev <- NULL\n    },\n    list_pointer = NULL,\n    index_head = NULL,\n    index_tail = NULL,\n    # next is an used variable from R.\n    get_index = function(index) {\n      if (self$index_tail < index) stop(\"index not created yet!\")\n      return(self$list_pointer[[index]]$value)\n    },\n    insert = function(value) {\n      self$list_pointer <- self$list_pointer %>%\n        append(new.env())\n      self$index_tail <- self$index_tail + 1\n      self$list_pointer[[self$index_tail]]$index_prev <-\n        self$list_pointer[[self$index_tail - 1]]\n      self$list_pointer[[self$index_tail - 1]]$index_next <-\n        self$list_pointer[[self$index_tail]]\n      self$list_pointer[[self$index_tail]]$value <- value\n      self$list_pointer[[self$index_tail]]$index_next <- NULL\n      return(self$list_pointer)\n    }\n  )\n)"
+  },
+  {
+    "objectID": "rworld/Blog/interact_with_firebase.html",
+    "href": "rworld/Blog/interact_with_firebase.html",
+    "title": "How to interact with firebase from a shinyapp",
+    "section": "",
+    "text": "At the planning phase of creating a shiny app you would find the importance of having storing data and interact with the stored system.\nYou might have interaction with data bases using dbplyr, DBI, among others packages. Reading this blog you will find how to use httr in order to access or modify stored data in firebase."
+  },
+  {
+    "objectID": "rworld/Blog/interact_with_firebase.html#interacting-with-firebase-from-r",
+    "href": "rworld/Blog/interact_with_firebase.html#interacting-with-firebase-from-r",
+    "title": "How to interact with firebase from a shinyapp",
+    "section": "Interacting with firebase from R",
+    "text": "Interacting with firebase from R\nFirstly, you need to have all setup in firebase so R can connect trough API, we recommend to store the API_KEY, firebase_url and password in the .Renviron file in the root of the app (where ui.R and server.R are stored or app.R).\nSecondly, it is very important to be familiar with JSON structures in order to design how you are going to store your data in firebase.\nFrom previous, you might want to bring the information, update, delete, insert, among others. Let’s build together the select.\n\nDefine JSON structure to store data\nIn my learning polish app, I design to have a list of words, this list would contains a list of categories, and each of this would have the register with the word, translation in spanish and date of insertion in a simple text.\nFor the purpose of the blog I am going to use a fragment of data from my learning polish shiny app.\n\n{\n  \"words\" : {\n    \"animals\" : [\n        \"pies: perro: 2022-01-23\",\n        \"kot: gato: 2022-01-23\",\n        \"biedronka: mariquita: 2022-01-23\",\n        \"Ptak: Pájaro: 2022-01-23\",\n        \"Komar: Mosquito: 2022-01-23\", ],\n    \"clothes\" : [\n        \"buty: zapatos:2022-01-26\",\n        \"spodnie: pantalón: 2022-01-30\",\n        \"sweter: sueter: 2022-02-22\",\n        \"krawat: corbata: 2022-02-22\",\n        \"koszula: camisa: 2022-02-22\" ],\n  }\n}\n\n\n\nSelecting data from firebase\nThe firebase url given by google is the place where your data is stored. It will look somethis as followwing: “https://name-hash_given_firebase-default-rtdb.firebaseio.com/”\nIf you would like to access to the words inside the category clothes, you might add the list words and clothes in the previous link, as follors:\n“https://name-hash_given_firebase-default-rtdb.firebaseio.com/words/clothes”\nIn the documentary from firebase, you can find that you need to add .json when you are using an API (I invite you to read documentation to more detail).\n\nselect_words <- function(categories) {\n    words <- httr::content(\n      httr::GET(\n        paste0(\n          Sys.getenv(\"FIREBASE_URL\"), \"/words/\", categories, \".json\")\n      )\n    ) %>%\n    purrr::flatten() %>%\n    unlist()\n  return(words)\n}\n\n\nselect_categories <- function() {\n  categories <- content(GET(\n    paste0(Sys.getenv(\"FIREBASE_URL\"), \"/words/.json\")\n  ))\n  return(categories)\n}\n\n\n\nInsert data to firebase:\nFor inserting data you can use the function PUT from httr. Into words variable we bring the words from category so we can add the new word to already stored words and converted to json with jsonlite package.\n\nadd_words <- function(categories, word) {\n  if (word != \"\") {\n    words <- select_words(categories)\n    body <- jsonlite::toJSON(c(words, word),\n      pretty = TRUE\n    )\n    response <- httr::PUT(\n      paste0(Sys.getenv(\"FIREBASE_URL\"), \"/words/\", categories, \".json\"),\n      body = body\n    )\n  }\n}\n\n\n\nDelete data stored in firebase from R.\nThe following function receives the name of the category and one or more words (example: ptak and komar).\nThe first purrr::map compares each word with the list of words inside the category and save the position where it is stored in firebase.\nThe second purrr::map iterates over positions and tells firebase wich position to DELETE.\n\ndelete_words <- function(categories, word) {\n  words_delete <- purrr::map(\n    .x = stringr::str_to_lower(word),\n    .f = function(.x) {\n      content(GET(\n        paste0(Sys.getenv(\"FIREBASE_URL\"), \"/words/\", categories, \".json\")\n      )) %>%\n        stringi::stri_trans_tolower(.) %>%\n        unique() %>%\n        stringr::str_starts(.x) %>%\n        which() - 1\n    }\n  )\n  purrr::map(\n    .x = words_delete,\n    .f = function(.x) {\n      httr::DELETE(\n        paste0(\n          Sys.getenv(\"FIREBASE_URL\"), \"words/\", categories, \"/\", .x, \".json\"\n        )\n      )\n    }\n  )\n}\n\nThanks for reading. Any comments or feedback I would love to hear from you, you can have my info from contact."
   }
 ]
