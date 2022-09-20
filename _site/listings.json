@@ -8,7 +8,9 @@
   },
   {
     "listing": "/rworld/DataScience.html",
-    "items": []
+    "items": [
+      "/rworld/DataScience/HOML_tidymodels.html"
+    ]
   },
   {
     "listing": "/rworld/Shiny.html",
