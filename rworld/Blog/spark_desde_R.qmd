@@ -1,0 +1,225 @@
+---
+title: "Uso de Spark desde R"
+description: "Big data con Spark y R" 
+lang: es
+categories: ["Spark", "R6Class", "Text mining"]
+---
+
+El uso de `Spark` en DataScience es ahora más común por sus grandes beneficios. 
+Algunos son: almacenamiento distribuido, uso de queries como si se estuviera 
+escribiendo en SQL, desarrollo de modelos de machine learning, entre muchos otros.
+
+Rstudio (Posit) ha desarrollado el paquete `sparklyr`, el cual me parece que es
+muy completo. Súper recomendado!!
+
+Los ejercicios de este blog provienen del curso de Udemy: **"Taming Big Data with 
+Apache Spark and Python - Hands On!"** sin embargo se resolvieron con Sparklyr y 
+la conexión se realiza de forma local.
+
+## Cargue librerías
+```{r}
+#| eval: true
+#| echo: true
+#| warning: false
+library(R6)
+library(tidyverse)
+library(sparklyr)
+```
+
+
+## Clase R6 spark_conexion.
+La clase spark_conexion mantiene toda información y métodos relevantes de la 
+conexión a Spark. Permitiendo reutilizarlas en todo el código.
+
+
+```{r}
+#| eval: true
+#| results: hide
+
+spark_conexion <- R6::R6Class(
+  classname = "conexion",
+  public = list(
+    initialize = function() {
+      return(invisible(self))
+    },
+    #' @description
+    #' Crea nuevo objeto de conexión
+    #' @details
+    #' Esta función requiere unas variables de ambiente cargadas para poder
+    #' functionar.
+    connect = function() {
+     self$conn_sp <- sparklyr::spark_connect(master = "local")
+      return(invisible(self))
+    },
+    #' @field conn_spark conexion a spack
+    conn_sp  = NULL,
+    #' @descripcion Método para dplyr::copy_to con conexion a spark
+    #' @param tabla_df Data frame
+    #' @param tbl_name Nombre de la tabla en spark
+    copy_to_sp = function(tabla_df, tbl_name) {
+      copy_to(self$conn_sp, tabla_df, tbl_name) 
+    },
+    #' @descripcion Método para leer tabla de spark
+    #' @param tbl_name Nombre de la tabla en spark
+    tbl_sp = function(tbl_name) spark_read_table(self$conn_sp, tbl_name)
+  )
+)
+
+conn <- spark_conexion$new()$connect()
+
+```
+
+## Operaciones básicas con `dplyr`
+Archivo extraído de `grouplens.org`.
+
+Ventajas de usar spark desde R:
+
+ -    Se pueden usar los *verbos* de dplyr
+ -    Lazy evaluation: Ver que en la parte superior del 
+  resultado aparece: *# Source: spark<?> [?? x 2])*
+
+::: {.panel-tabset}
+
+## `group_by y count`
+```{r}
+#| eval: true
+sparklyr::spark_read_text(
+  conn$conn_sp, 
+  name = "movieLens",
+  "../../data/u.data"
+) %>% 
+  separate(line, c("user id","item id","rating","timestamp"), sep = "\t") %>% 
+  group_by(rating) %>% 
+  count()
+```
+
+## `summarise, arrange`
+También permite usar `summarise, arrange` y operaciones dentro de summarise cómo
+`round, mean`.
+```{r}
+#| eval: true
+#| warning: false
+sp_fake_friends <- sparklyr::spark_read_csv(
+  conn$conn_sp,
+  name = "fakefriends",
+  "../../data/fakefriends.csv",
+  header = FALSE,
+  columns = c("id", "name", "age", "num_friends")
+) %>% 
+  group_by(age) %>% 
+  summarise(num_friends = round(mean(num_friends), 1)) %>% 
+  arrange(age)
+sp_fake_friends
+```
+
+## filter min 
+La función dplyr::filter puede entrar en conflicto con la funcion sparklyr::filter
+
+```{r}
+#| eval: true
+#| warning: false
+sparklyr::spark_read_csv(
+  conn$conn_sp,
+  name = "fakefriends",
+  "../../data/fakefriends.csv",
+  header = FALSE,
+  columns = c("id", "name", "age", "num_friends")
+) %>% 
+  dplyr::filter(age == min(age))
+
+```
+
+:::
+
+
+## Operaciones con texto
+Las operaciones con texto también pueden ser usadas mediante verbos o secuencia
+`tidyverse`. 
+
+ -    ft_tokenizer: Esta función permite almacenar las palabras de la fila en una 
+  lista.     
+ -    ft_stop_words_remover: Se eliminan las palabras conexión tales como: `a, en,
+  entre, o, aquí, aún, con, de, e, y, hay, ...`
+   
+```{r}
+sparklyr::spark_read_text(
+  conn$conn_sp,
+  path = "../../data/Book"
+) %>% 
+  ft_tokenizer(
+    input_col = "line",
+    output_col = "word_list"
+      
+  ) %>% 
+  ft_stop_words_remover(
+    input_col = "word_list",
+    output_col = "wo_stop_words"
+  ) %>% 
+  mutate(palabra = explode(wo_stop_words)) %>% 
+  filter(palabra != "") %>% 
+  group_by(palabra) %>% 
+  count() %>% 
+  filter(palabra != "�") %>% 
+  arrange(desc(n)) %>% 
+  head(10)
+```
+
+
+## Machine Learning 
+
+En mi opinión los beneficios que encontré de aplicar ML con sparklyr son:
+
+ -    Pipelines: Conjunto de pasos que se desean aplicar al modelo en 
+  construcción, es decir, las operaciones a la base, la formula del modelo, 
+  seleccion el algoritmo a desarrollar (regresión lineal, árbol de decisión).
+
+ - Algoritmos: Sparklyr usa la librería de ML de Spark, por ende, cuenta con 
+  una gran variedad de algoritmos para ser usados.
+ 
+ -    Transformaciones: ft_dplyr_transformer permite aplicar operaciones con dplyr y 
+ aplicarlo en el pipeline creado.
+
+### Linear Regression
+
+::: {.panel-tabset}
+
+## data
+```{r}
+#| code-fold: true
+sdf_regresion <- sparklyr::spark_read_text(
+  conn$conn_sp,
+  path = "../../data/regression.txt"
+) %>% 
+  separate(line, c("x", "y"), ",") %>% 
+  mutate(across(where(is.character), as.numeric))
+
+sdf_regresion
+```
+
+## Modelo 
+```{r}
+regresion_pipeline <- sparklyr::ml_pipeline(conn$conn_sp) %>%
+  sparklyr::ft_r_formula(y ~ x) %>%
+  sparklyr::ml_linear_regression()
+
+partitioned_regresion <- sparklyr::sdf_random_split(
+  sdf_regresion,
+  training = 0.7,
+  testing = 0.3
+)
+
+fitted_pipeline <- sparklyr::ml_fit(
+  regresion_pipeline,
+  partitioned_regresion$training
+)
+
+predictions <- sparklyr::ml_transform(
+  fitted_pipeline,
+  partitioned_regresion$testing
+)
+
+predictions
+
+```
+
+:::

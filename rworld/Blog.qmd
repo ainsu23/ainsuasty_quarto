@@ -1,6 +1,6 @@
 ---
 title: Blog
-subtitle: "R, Python, SQL, among others"
+subtitle: "R, Python, SQL, Spark, among others"
 description: "General tips for R, Git, SQL or python."
 adjusting: c
 image: ../image/blog.png
