@@ -5,6 +5,7 @@ description: "Machine learning models developed with tidymodels"
 adjusting: c
 category: Models
 image: ../image/ds.png
+css: ../style.css
 listing: 
   contents: DataScience
   type: grid
