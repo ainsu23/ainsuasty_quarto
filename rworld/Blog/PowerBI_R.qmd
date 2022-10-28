@@ -1,0 +1,135 @@
+---
+title: "PowerBI Leverage with R"
+description: "Leverage PowerBI apps with R" 
+categories: ["PowerBI", "R", "functions"]
+format: 
+  html: 
+    css: ["../../css/base.css"]
+---
+
+**PowerBI it's a completed tool for creating dashboard, nevertheless, you
+can make it so much more completed leveraging with others languages, such as, R
+or Python.**
+
+----- 
+
+## Ryan E Wade conference
+When at my work I was assigned to co-created a dashboard in powerBI, I inmediately 
+remember the confrence from **Ryan E Wade** about levering powerBI with R.
+[![](/image/PowerBI_Leveraging_R.PNG){fig-align="center"}](https://www.rstudio.com/conference/2022/talks/tidyverse-power-bi-match-made/)
+
+## Comparing sales within months  - dashboard
+This blog contains a very simple dashboard with just one table, my purpose indeed,
+it is just to show how with R we can create as many columns with hexcode colors to
+make change a color of a column automatically, making the dashboard reproducible in
+the time.
+
+
+```{r}
+#| eval: true 
+library(tidyverse)
+```
+
+### Table Sales
+![](/image/PowerBi_Sales.PNG){fig-align="center"}
+A sales table was created with just seller_id, month and the sales made. 
+
+After that, two columns were created to store `sales_avg` and `delays_avg`.
+
+```{r}
+#| eval: true 
+#| code-fold: true
+Sales <- tibble::tribble(
+  ~seller_id, ~month, ~sales, ~delays_percentage,
+  1, 2, 200,0.2,
+  1, 1, 400,0.04,
+  1, 3, 140,0.29,
+  1, 4, 390,0.11,
+  1, 5, 260,0.34,
+  1, 6, 130,0.23,
+  2, 1, 300,0.1,
+  2, 2, 317,0.07,
+  2, 3, 263,0.13,
+  2, 4, 142,0.21,
+  2, 5, 361,0.03,
+  2, 6, 134,0.16,
+  3, 1, 124,0.25,
+  3, 2, 374,0.23,
+  3, 3, 762,0.2,
+  3, 4, 163,0.27,
+  3, 5, 186,0.12,
+  3, 6, 177,0.09,
+) %>% 
+  as.data.frame() %>% 
+  mutate(
+      sales_avg = round(mean(sales), 1),
+      delays_avg = round(mean(delays_percentage), 2)        
+  ) 
+
+Sales
+```
+
+### Creation of new columns 
+![](/image/PowerBI_Compare_function.PNG){fig-align="center"}
+
+The principal idea of the following function called `compare` it's to generate
+the number of columns that the final user wants to compare and generate de hexcode
+column to apply functional conditions in PowerBI.
+
+::: {.panel-tabset}
+
+## function
+The compare function recibe the table, 2 columns to compare and the function to 
+apply. Returns a dataframe with a hexcode color column.
+```{r}
+compare <- function(.base, .column1, .column2, .f) {
+  column <- paste0("color_",{{ .column1}})
+  funcion <- .Primitive({{ .f }})
+  maximo <- .f == "max"
+
+ base2 <- .base %>%
+    mutate(
+      {{ column }} := ifelse(
+            !!rlang::sym(.column1) >= funcion(!!rlang::sym(.column2), na.rm = TRUE),  
+            ifelse(maximo,"#00FF00", "#FF0000"), 
+            ifelse(!maximo, "#00FF00","#FF0000")
+      )
+    ) %>%
+    ungroup() %>%
+    select({{ column }})
+  return(base2)
+}
+```
+
+## Final table
+Store the columns you want to compare in column1 and column2, also, write the 
+function you wants to apply (max or min). 
+
+```{r}
+column1 <- list("sales", "delays_percentage")
+column2 <- list("sales_avg", "delays_avg")
+.f<- list("max", "min")
+
+# Iterate throug list of lists with pmap
+tabla <- purrr::pmap(
+  .l = list(column1, column2, .f),
+  .f = function(.x, .y, .z){
+    Sales %>%
+        compare(.x, .y, .z)
+  }
+) %>%
+  # Convert list into a dataframe
+  purrr::flatten_df() %>%
+  # column bind base with new columns flatten
+  cbind(Sales, .)
+
+tabla
+```
+
+:::
+
+## Final result in PowerBI
+With the following result I invite you to integrate R scripts with PowerBI so 
+you can create powerfull apps.
+
+![](/image/PowerBI_Final_Result.PNG){fig-align="center"}
