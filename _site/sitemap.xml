@@ -2,62 +2,54 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>ainsuasty.com/index.html</loc>
-    <lastmod>2022-10-28T06:20:09.088Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Blog.html</loc>
-    <lastmod>2022-10-28T06:20:53.006Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/DataScience.html</loc>
-    <lastmod>2022-10-28T06:20:34.857Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Shiny.html</loc>
-    <lastmod>2022-10-28T06:19:33.854Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld.html</loc>
-    <lastmod>2022-10-28T06:20:49.268Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Shiny/data_structures.html</loc>
-    <lastmod>2022-09-12T05:42:38.630Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Shiny/learning_polish.html</loc>
-    <lastmod>2022-09-12T05:28:41.165Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Shiny/mastering_shiny.html</loc>
-    <lastmod>2022-09-12T05:28:41.728Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/Shiny/data_structures.html</loc>
-    <lastmod>2022-09-12T04:09:33.889Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/Shiny/learning_polish.html</loc>
-    <lastmod>2022-09-12T04:09:34.426Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/Shiny/mastering_shiny.html</loc>
-    <lastmod>2022-09-12T04:09:34.949Z</lastmod>
+    <lastmod>2022-10-28T06:39:14.112Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/Blog/data_structures.html</loc>
-    <lastmod>2022-09-12T05:46:35.340Z</lastmod>
+    <lastmod>2022-10-28T06:39:14.972Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/Blog/interact_with_firebase.html</loc>
-    <lastmod>2022-09-12T13:14:04.100Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/DataScience/HOML_tidymodels.html</loc>
-    <lastmod>2022-10-28T06:20:41.172Z</lastmod>
+    <lastmod>2022-10-28T06:39:15.858Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/Blog/PowerBI_R.html</loc>
-    <lastmod>2022-10-28T06:20:55.877Z</lastmod>
+    <lastmod>2022-10-28T06:39:35.202Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld/Blog/spark_desde_R.html</loc>
+    <lastmod>2022-10-28T06:39:17.580Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld/Blog.html</loc>
+    <lastmod>2022-10-28T06:39:31.081Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld/DataScience/HOML_tidymodels.html</loc>
+    <lastmod>2022-10-28T06:39:18.968Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld/DataScience.html</loc>
+    <lastmod>2022-10-28T06:39:19.491Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld/Shiny/data_structures.html</loc>
+    <lastmod>2022-10-28T06:39:19.988Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld/Shiny/learning_polish.html</loc>
+    <lastmod>2022-10-28T06:39:20.511Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld/Shiny/mastering_shiny.html</loc>
+    <lastmod>2022-10-28T06:39:21.026Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld/Shiny.html</loc>
+    <lastmod>2022-10-28T06:39:21.616Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/rworld.html</loc>
+    <lastmod>2022-10-28T06:39:27.616Z</lastmod>
   </url>
 </urlset>
