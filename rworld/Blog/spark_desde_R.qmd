@@ -3,6 +3,9 @@ title: "Uso de Spark desde R"
 description: "Big data con Spark y R" 
 lang: es
 categories: ["Spark", "R6Class", "Text mining"]
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
 ---
 
 El uso de `Spark` en DataScience es ahora más común por sus grandes beneficios. 

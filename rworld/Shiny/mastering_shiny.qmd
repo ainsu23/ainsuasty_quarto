@@ -4,6 +4,9 @@ subtitle: "By Hadley Wickham"
 description: "Solution to exercices mastering Shiny's book." 
 image: ../../image/mastering_shiny.jpg
 categories: ["modules"]
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
 ---
 
 This application solves exercises proposed on each chapter of the book.
