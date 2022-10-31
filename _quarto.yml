@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "ainsuasty"
+  title: "{{< fa user-ninja >}}ainsuasty"
   image: image/Insu.png
   favicon: image/favicon-32x32.png
   site-url: ainsuasty.com
@@ -11,9 +11,13 @@ website:
   navbar:
     left: 
       - href: index.qmd
-        text: Home
+        text: "{{< fa home >}} Home"
       - href: rworld.qmd
-        text: "My R World"
+        text: "{{< fa earth-americas >}} My R World"
+    right: 
+      - href: cv.html
+        text: "{{< fa id-card >}} Vitae"
+      
 format:
   html:
    # theme: cosmo
