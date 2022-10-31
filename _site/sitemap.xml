@@ -1,55 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>ainsuasty.com/index.html</loc>
-    <lastmod>2022-10-31T01:03:29.909Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Blog/data_structures.html</loc>
-    <lastmod>2022-10-31T01:15:56.621Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Blog/interact_with_firebase.html</loc>
-    <lastmod>2022-10-31T01:02:46.080Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Blog/PowerBI_R.html</loc>
-    <lastmod>2022-10-31T00:46:32.178Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Blog/spark_desde_R.html</loc>
-    <lastmod>2022-10-31T01:03:54.742Z</lastmod>
-  </url>
-  <url>
-    <loc>ainsuasty.com/rworld/Blog.html</loc>
-    <lastmod>2022-10-31T01:04:01.064Z</lastmod>
-  </url>
-  <url>
     <loc>ainsuasty.com/rworld/DataScience/HOML_tidymodels.html</loc>
-    <lastmod>2022-10-31T01:16:18.651Z</lastmod>
+    <lastmod>2022-10-31T04:24:00.740Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/DataScience.html</loc>
-    <lastmod>2022-10-31T01:16:23.614Z</lastmod>
+    <lastmod>2022-10-31T04:23:52.214Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/Shiny/data_structures.html</loc>
-    <lastmod>2022-10-31T01:03:20.096Z</lastmod>
+    <lastmod>2022-10-31T04:23:53.102Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/Shiny/learning_polish.html</loc>
-    <lastmod>2022-10-31T01:03:20.647Z</lastmod>
+    <lastmod>2022-10-31T04:23:54.059Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/Shiny/mastering_shiny.html</loc>
-    <lastmod>2022-10-31T01:16:36.830Z</lastmod>
+    <lastmod>2022-10-31T04:23:54.909Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/Shiny.html</loc>
-    <lastmod>2022-10-31T01:16:42.794Z</lastmod>
+    <lastmod>2022-10-31T04:23:55.999Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld.html</loc>
-    <lastmod>2022-10-31T01:16:27.816Z</lastmod>
+    <lastmod>2022-10-31T04:30:59.275Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/index.html</loc>
+    <lastmod>2022-10-31T04:30:51.048Z</lastmod>
   </url>
 </urlset>
