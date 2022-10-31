@@ -4,6 +4,9 @@ subtitle: "App with application of Data Structures"
 description: "App to develop data structure applications" 
 image: ../../image/data_structures.jpg
 categories: ["R6Class", "Data Structures"]
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
 ---
 
  -    [Go to App](https://afinsuasty.shinyapps.io/data-structures/)

@@ -2,6 +2,9 @@
 title: "Hands On Machine Learning with tidymodels"
 subtitle: "My learning path"
 category: Data Splitting
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
 format: 
   html:
     css: css/blogs.css

@@ -4,6 +4,9 @@ subtitle: "App with interactive games."
 description: "App created to learn polish in an interactive way with games developed" 
 image: ../../image/learning_polish.jpg
 categories: ["firebase", "API"]
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
 ---
 
  -    [Go to App](https://afinsuasty.shinyapps.io/learning_polish/)

@@ -2,6 +2,9 @@
 title: "How to interact with firebase from a shinyapp"
 description: "Find how to use `httr` to access or modify stored data in firebase." 
 categories: ["Firebase"]
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
 ---
 
 At the planning phase of creating a shiny app you would find the importance of
