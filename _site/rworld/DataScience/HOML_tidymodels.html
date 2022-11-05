@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ainsuasty - Hands On Machine Learning with tidymodels</title>
+<title>ainsuasty - Hands On Machine Learning with R</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -156,7 +156,7 @@ ga('send', {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
     <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">ainsuasty</span>
+    <span class="navbar-title"><i class="fa-solid fa-user-ninja" aria-label="user-ninja"></i>ainsuasty</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -166,17 +166,17 @@ ga('send', {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../index.html">
- <span class="menu-text">Home</span></a>
+ <span class="menu-text"><i class="fa-solid fa-home" aria-label="home"></i> Home</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../rworld.html">
- <span class="menu-text">My R World</span></a>
+ <span class="menu-text"><i class="fa-solid fa-earth-americas" aria-label="earth-americas"></i> My R World</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="../../cv.html">
- <span class="menu-text"><i class="fa-solid fa-person-rolodex" aria-label="person-rolodex"></i> Vitae</span></a>
+ <span class="menu-text"><i class="fa-solid fa-id-card" aria-label="id-card"></i> Vitae</span></a>
   </li>  
 </ul>
               <div class="quarto-toggle-container">
@@ -196,14 +196,22 @@ ga('send', {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-splitting-rsample" id="toc-data-splitting-rsample" class="nav-link active" data-scroll-target="#data-splitting-rsample">Data Splitting <code>{rsample}</code></a>
+  <li><a href="#modelling-process" id="toc-modelling-process" class="nav-link active" data-scroll-target="#modelling-process">Modelling process</a>
+  <ul class="collapse">
+  <li><a href="#data-splitting-rsample" id="toc-data-splitting-rsample" class="nav-link" data-scroll-target="#data-splitting-rsample">1. Data Splitting <code>{rsample}</code></a>
   <ul class="collapse">
   <li><a href="#train-data" id="toc-train-data" class="nav-link" data-scroll-target="#train-data">Train Data</a></li>
   <li><a href="#test-data" id="toc-test-data" class="nav-link" data-scroll-target="#test-data">Test data</a></li>
   </ul></li>
-  <li><a href="#modelling-in-r" id="toc-modelling-in-r" class="nav-link" data-scroll-target="#modelling-in-r">Modelling in R</a>
+  <li><a href="#modelling-in-r" id="toc-modelling-in-r" class="nav-link" data-scroll-target="#modelling-in-r">2. Modelling in R</a></li>
+  <li><a href="#resampling-methods" id="toc-resampling-methods" class="nav-link" data-scroll-target="#resampling-methods">3. Resampling methods</a></li>
+  <li><a href="#bias-variance-trade-off" id="toc-bias-variance-trade-off" class="nav-link" data-scroll-target="#bias-variance-trade-off">4. Bias variance trade-off</a></li>
+  <li><a href="#model-evaluation" id="toc-model-evaluation" class="nav-link" data-scroll-target="#model-evaluation">5. Model evaluation</a></li>
+  </ul></li>
+  <li><a href="#feature-target-engineering" id="toc-feature-target-engineering" class="nav-link" data-scroll-target="#feature-target-engineering">Feature &amp; Target Engineering</a>
   <ul class="collapse">
-  <li><a href="#resampling-methods" id="toc-resampling-methods" class="nav-link" data-scroll-target="#resampling-methods">Resampling methods</a></li>
+  <li><a href="#target-engineering" id="toc-target-engineering" class="nav-link" data-scroll-target="#target-engineering">1. Target Engineering</a></li>
+  <li><a href="#dealing-with-missingness" id="toc-dealing-with-missingness" class="nav-link" data-scroll-target="#dealing-with-missingness">2. Dealing with missingness</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -213,8 +221,8 @@ ga('send', {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hands On Machine Learning with tidymodels</h1>
-<p class="subtitle lead">My learning path</p>
+<h1 class="title">Hands On Machine Learning with R</h1>
+<p class="subtitle lead">Fundamentals</p>
 </div>
 
 
@@ -231,8 +239,10 @@ ga('send', {
 
 <p>Getting very good understanding and skilled applying machine learning it is very important, for this reason, I started learning with the <a href="https://bradleyboehmke.github.io/HOML/">book hands on machine learning with tidymodels</a></p>
 <p>This post contains notes and solutions to the exercises for each chapter of the book.</p>
+<section id="modelling-process" class="level1">
+<h1>Modelling process</h1>
 <section id="data-splitting-rsample" class="level2">
-<h2 class="anchored" data-anchor-id="data-splitting-rsample">Data Splitting <code>{rsample}</code></h2>
+<h2 class="anchored" data-anchor-id="data-splitting-rsample">1. Data Splitting <code>{rsample}</code></h2>
 <p>Machine learning models requires data in order to teach the model. This data needs to be separated in two. <em>Data used from package</em>: <code>{modeldata}</code></p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">simple sample</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Stratified sample</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Down-Sampling</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Up-Sampling</a></li></ul>
@@ -338,10 +348,11 @@ ga('send', {
 </section>
 </section>
 <section id="modelling-in-r" class="level2">
-<h2 class="anchored" data-anchor-id="modelling-in-r">Modelling in R</h2>
+<h2 class="anchored" data-anchor-id="modelling-in-r">2. Modelling in R</h2>
 <p>There are different ways to create a formulas depending on the engine used. In order to test the model, we should not use the test data, instead, training data should be splitied using resampling methods,</p>
-<section id="resampling-methods" class="level3">
-<h3 class="anchored" data-anchor-id="resampling-methods">Resampling methods</h3>
+</section>
+<section id="resampling-methods" class="level2">
+<h2 class="anchored" data-anchor-id="resampling-methods">3. Resampling methods</h2>
 <p>“Provide an alternative approach by allowing us to repeatedly fit a model of interest to parts of the training data and test its performance on other parts. The two most commonly used resampling methods include <code>k-fold cross validation</code> and <code>bootstrapping</code>.”</p>
 <div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">K-fold cross validation</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Bootstrapping</a></li></ul>
@@ -394,6 +405,37 @@ ga('send', {
 </div>
 </div>
 <p>Following image shows distribution for each approach, each graphs was generated from the book. <img src="../../image/kfolds_vs_bootstrap.png" class="img-fluid"></p>
+</section>
+<section id="bias-variance-trade-off" class="level2">
+<h2 class="anchored" data-anchor-id="bias-variance-trade-off">4. Bias variance trade-off</h2>
+<p><a href="https://bradleyboehmke.github.io/HOML/process.html#bias-var">Bias variance trade-off</a></p>
+</section>
+<section id="model-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="model-evaluation">5. Model evaluation</h2>
+<p><a href="https://bradleyboehmke.github.io/HOML/process.html#model-eval">Model evaluation</a></p>
+</section>
+</section>
+<section id="feature-target-engineering" class="level1">
+<h1>Feature &amp; Target Engineering</h1>
+<p>I will be using <code>recipes</code> packages from tidymodels framework.</p>
+<section id="target-engineering" class="level2">
+<h2 class="anchored" data-anchor-id="target-engineering">1. Target Engineering</h2>
+<p>Some models, for example, parametrics ones. Assumes that their response variable and the error are normally distributed. Therefore, it is important to review distribution before start modelling, this might improve the prediction.</p>
+<p>One way to correct not normally distribution is with the <code>log</code> or <code>BoxCox</code> function. <em>“However, we should think of the preprocessing as creating a blueprint to be re-applied strategically. For this, you can use the <code>recipe package</code> or something similar (e.g., caret::preProcess()). This will not return the actual log transformed values but, rather, a blueprint to be applied later.”</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Log transformation applied to all outcomes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ames_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames_train) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_log</span>(<span class="fu">all_outcomes</span>()) <span class="co"># OR</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># step_BoxCox(all_outcomes())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In case the response variable has negatives, the previous approach might conduct to NAs values, then, <code>step_YeoJohnson()</code> can be applied.</p>
+</section>
+<section id="dealing-with-missingness" class="level2">
+<h2 class="anchored" data-anchor-id="dealing-with-missingness">2. Dealing with missingness</h2>
+<p>I strongly recommend to use <code>naniar</code> package to check missings values in the df. <strong>naniar::vis_miss()</strong></p>
+<p><img src="../../image/vis_miss.PNG" class="img-fluid"></p>
+<p>Some missing values might be an error caused by the construction of the data, so, this requires to analyse. In case, Data is well built, imputation values can be used. Please check the following:</p>
+<p><img src="../../image/missing_imputations.PNG" class="img-fluid"></p>
 
 
 </section>
