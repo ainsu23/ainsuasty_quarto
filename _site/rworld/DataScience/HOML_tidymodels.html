@@ -212,6 +212,11 @@ ga('send', {
   <ul class="collapse">
   <li><a href="#target-engineering" id="toc-target-engineering" class="nav-link" data-scroll-target="#target-engineering">1. Target Engineering</a></li>
   <li><a href="#dealing-with-missingness" id="toc-dealing-with-missingness" class="nav-link" data-scroll-target="#dealing-with-missingness">2. Dealing with missingness</a></li>
+  <li><a href="#feature-filtering" id="toc-feature-filtering" class="nav-link" data-scroll-target="#feature-filtering">3. Feature filtering</a>
+  <ul class="collapse">
+  <li><a href="#numeric-feature-engineering" id="toc-numeric-feature-engineering" class="nav-link" data-scroll-target="#numeric-feature-engineering">Numeric feature engineering</a></li>
+  <li><a href="#categorical-feature-engineering" id="toc-categorical-feature-engineering" class="nav-link" data-scroll-target="#categorical-feature-engineering">Categorical feature engineering</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -436,8 +441,132 @@ ga('send', {
 <p><img src="../../image/vis_miss.PNG" class="img-fluid"></p>
 <p>Some missing values might be an error caused by the construction of the data, so, this requires to analyse. In case, Data is well built, imputation values can be used. Please check the following:</p>
 <p><img src="../../image/missing_imputations.PNG" class="img-fluid"></p>
+</section>
+<section id="feature-filtering" class="level2">
+<h2 class="anchored" data-anchor-id="feature-filtering">3. Feature filtering</h2>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For some models, increasing features not always make the output better, instead, it can affect the processing time and cost of computation.</p>
+</div>
+</div>
+<p>The following images are taken from the book referenced at the beginning of the blog. On the left, it shows the performance metric vs # features and on the right, it shows the processing time taken to train a model.</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Performance vs Features</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Processing Time vs Features</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p><img src="../../image/performance_vs_numFeatures.PNG" class="img-fluid"></p>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p><img src="../../image/processingTime_vs_NumFeatures.PNG" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Zero and near-zero variance variables are target to eliminate as features! Meaning the feature only has a single value or not useful information to the model</p>
+</div>
+</div>
+<p>In order to remove zero or near-zero variables, use the following functions from <code>recipes</code> packages:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ames_recipe <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_nzv</span>() <span class="sc">%&gt;%</span> <span class="co"># near zero variance elimiate</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_zv</span>() <span class="co"># zero variance eliminate</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="numeric-feature-engineering" class="level3">
+<h3 class="anchored" data-anchor-id="numeric-feature-engineering">Numeric feature engineering</h3>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Skewness</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Standarization</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>In order to correct Skewness, normalize. Use BoxCox for positive features, in case of negative features use YeoJohnson.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ames_recipe <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  recipes<span class="sc">::</span><span class="fu">step_BoxCox</span>() <span class="co">#positive features</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># recipes::step_YeoJohnson() #include negative features</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p><em>“Standarization includes centering and scaling so that numeric variables have zero mean and unit variance, which provides a common comparable unit of measure across all the variables”</em></p>
+<p><em>“Models that incorporate smooth functions of input features are sensitive to the scale of the inputs. Many algorithms use linear functions within their algorithms, some more obvious (e.g., GLMs and regularized regression) than others (e.g., neural networks, support vector machines, and principal components analysis). Other examples include algorithms that use distance measures such as the Euclidean distance (e.g., k nearest neighbor, k-means clustering, and hierarchical clustering).”</em></p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>However, you should standardize your variables within the recipe blueprint so that both <strong>training and test data standardization are based on the same mean and variance</strong>. This helps to minimize data leakage</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ames_recipe <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_center</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_scale</span>(<span class="fu">all_numeric</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="categorical-feature-engineering" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-feature-engineering">Categorical feature engineering</h3>
+<p>Some models requires all features to be numerical.</p>
+<section id="lumping" class="level4">
+<h4 class="anchored" data-anchor-id="lumping">Lumping</h4>
+<p>In some cases, there are some levels of a categorical variable that have few observations, therefore, we can agrupated them in one level with <code>step_other</code>. However, lumping should be used sparingly as there is often a loss in model performance (Kuhn, Max, and Kjell Johnson. 2013. Applied Predictive Modeling. Vol. 26. Springer.).</p>
+</section>
+<section id="one-hot-dummy-encoding" class="level4">
+<h4 class="anchored" data-anchor-id="one-hot-dummy-encoding">One-hot &amp; dummy encoding</h4>
+<p>A categorical column could be converted to a set of binaries variables. However, some models, such as, ordinary linear regression and neural networks, might have problems with collinearity (collinearity, in statistics, correlation between predictor variables (or independent variables), such that they express a linear relationship in a regression model. When predictor variables in the same regression model are correlated, they cannot independently predict the value of the dependent variable). Therefore, dummy step would remove one binary variable to not create a collinearity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">recipe</span>(Sale_Price <span class="sc">~</span> ., <span class="at">data =</span> ames_train) <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_nominal</span>(), <span class="at">one_hot =</span> <span class="cn">TRUE</span>) <span class="co"># One-hot encoding</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># step_dummy(all_nominal()) # dummy encoding</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="../../image/categorical_encodings.PNG" class="img-fluid"></p>
+</section>
+<section id="label-encoding" class="level4">
+<h4 class="anchored" data-anchor-id="label-encoding">Label encoding</h4>
+<p>It generates the number order of the levels and it is done with <code>step_integer()</code></p>
+<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>For ordered factors you could also use <code>step_ordinalscore()</code>.</p>
+</div>
+</div>
+</section>
+<section id="putting-the-process-together" class="level4">
+<h4 class="anchored" data-anchor-id="putting-the-process-together">Putting the process together</h4>
+<p><a href="https://bradleyboehmke.github.io/HOML/engineering.html#proper-implementation">Process together Fundamentals</a></p>
 
 
+</section>
+</section>
 </section>
 </section>
 
