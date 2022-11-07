@@ -2,6 +2,7 @@
 title: "Hands On Machine Learning with R"
 subtitle: "Fundamentals"
 category: Data Splitting
+image: ../../image/performance_vs_numFeatures.PNG
 comments: 
   utterances: 
     repo: ainsu23/ainsuasty_quarto
@@ -214,3 +215,119 @@ In case, Data is well built, imputation values can be used. Please check the
 following:
 
 ![](../../image/missing_imputations.PNG)
+
+## 3. Feature filtering
+
+:::{.callout-important}
+
+For some models, increasing features not always make the output better, instead, 
+it can affect the processing time and cost of computation.
+
+:::
+
+The following images are taken from the book referenced at the beginning of the 
+blog. On the left, it shows the performance metric vs # features and on the 
+right, it shows the processing time taken to train a model.
+
+::: {.panel-tabset}
+### Performance vs Features
+![](../../image/performance_vs_numFeatures.PNG)
+
+### Processing Time vs Features
+![](../../image/processingTime_vs_NumFeatures.PNG)
+:::
+
+:::{.callout-tip}
+Zero and near-zero variance variables are target to eliminate as features! 
+Meaning the feature only has a single value or not useful information
+to the model
+:::
+
+In order to remove zero or near-zero variables, use the following functions from `recipes` 
+packages:
+
+```{r}
+#| eval: false
+ames_recipe %>% 
+  recipes::step_nzv() %>% # near zero variance elimiate
+  recipes::step_zv() # zero variance eliminate
+```
+
+### Numeric feature engineering
+
+:::: {.panel-tabset}
+### Skewness
+In order to correct Skewness, normalize. Use BoxCox for positive features, in case
+of negative features use YeoJohnson.
+```{r}
+#| eval: false
+ames_recipe %>% 
+  recipes::step_BoxCox() #positive features
+  # recipes::step_YeoJohnson() #include negative features
+```
+
+### Standarization
+*"Standarization includes centering and scaling so that numeric variables have 
+zero mean and unit variance, which provides a common comparable unit of measure 
+across all the variables"*
+
+*"Models that incorporate smooth functions of input features are sensitive to the 
+scale of the inputs. Many algorithms use linear functions within their 
+algorithms, some more obvious (e.g., GLMs and regularized regression) than 
+others (e.g., neural networks, support vector machines, and principal components 
+analysis). Other examples include algorithms that use distance measures such as 
+the Euclidean distance (e.g., k nearest neighbor, k-means clustering, and 
+hierarchical clustering)."*
+
+:::{.callout-important}
+However, you should standardize your variables within the recipe blueprint so 
+that both **training and test data standardization are based on the same mean and 
+variance**. This helps to minimize data leakage
+
+:::
+```{r}
+#| eval: false
+ames_recipe %>%
+  step_center(all_numeric(), -all_outcomes()) %>%
+  step_scale(all_numeric(), -all_outcomes())
+```
+
+::::
+
+### Categorical feature engineering
+Some models requires all features to be numerical.
+
+#### Lumping
+In some cases, there are some levels of a categorical variable that have few 
+observations, therefore, we can agrupated them in one level with `step_other`.
+However, lumping should be used sparingly as there is often a loss in model 
+performance (Kuhn, Max, and Kjell Johnson. 2013. Applied Predictive Modeling. 
+Vol. 26. Springer.).
+
+#### One-hot & dummy encoding
+A categorical column could be converted to a set of binaries variables. However,
+some models, such as, ordinary linear regression and neural networks, might have
+problems with collinearity (collinearity, in statistics, correlation between 
+predictor variables (or independent variables), such that they express a linear 
+relationship in a regression model. When predictor variables in the same 
+regression model are correlated, they cannot independently predict the value of 
+the dependent variable). Therefore, dummy step would remove one binary variable
+to not create a collinearity.
+```{r}
+#| eval: false
+recipe(Sale_Price ~ ., data = ames_train) %>%
+  step_dummy(all_nominal(), one_hot = TRUE) # One-hot encoding
+  # step_dummy(all_nominal()) # dummy encoding
+```
+
+![](../../image/categorical_encodings.PNG)
+
+#### Label encoding
+It generates the number order of the levels and it is done with `step_integer()`
+
+:::{.callout-important}
+For ordered factors you could also use `step_ordinalscore()`.
+:::
+
+#### Putting the process together
+[Process together Fundamentals](https://bradleyboehmke.github.io/HOML/engineering.html#proper-implementation)
