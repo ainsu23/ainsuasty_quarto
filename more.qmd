@@ -1,0 +1,19 @@
+---
+title: "And more"
+listing:
+  contents: "more/*.qmd"
+  type: grid
+  categories: false 
+  sort: 
+    "date"
+  fields: 
+    - title
+    - subtitle
+    - image
+    - description
+format: 
+  html: 
+    css: styles.css
+---
+
+
