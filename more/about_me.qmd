@@ -1,0 +1,51 @@
+---
+title: About me 
+image: ../image/about_me.jpeg
+---
+
+::: {#fig-happy layout-ncol=2}
+
+![MSc in Statistics and Operation Research](../image/about_me.jpeg){#fig-MSc}
+
+![Travelling](../image/Insu23.jpeg){#fig-travelling}
+
+Happy moments
+:::
+
+My name is **Andrés Felipe Insuasty Ch.** (Please call me: **Insu**), 
+
+I am from Cali, Colombia. Capital of salsa dancing 💃, full of tastes in its 
+food{{< fa fork-knife >}}, beauty of the people and great parties or festivals 
+{{< fa face-party >}}.
+
+On 2022 I got married {{< fa ring-wedding >}} in Pasto, Colombia with **Klaudia** 
+from Poland, On {{< fa cake-candles >}}23rd of September 2022, I turned 32 years 
+in Bogotá. Same year, on November, I will be the father {{< fa baby >}} of Oliver.
+
+![](../image/oliver.jpg){width=40% fig-align="center"}
+
+
+[Check my resume for professional information](../cv.html)
+
+## PROJECTS 📖
+
+*All would be uploaded to my [GitHub](https://github.com/ainsu23)*
+
+### HOBBIES 😎
+
+Some fun facts about me:
+
+-   I used to practice Karate {{< fa uniform-martial-arts >}}, Soccer {{< fa futbol >}}.
+
+-   I love biking{{< fa person-biking >}} and jogging{{< fa person-running >}}.
+
+-   Love dancing Salsa
+
+-   Learning to take pictures [Check my Instagram](https://www.instagram.com/afinsuasty/) 📷
+
+-   Some cooking recipies explained by me:
+  1. [Racuchy de Manzana, Polish recipy](https://www.youtube.com/watch?v=I23IbXSW2m8) 🍎😋
+
+-   Travelling a lot around the world✈️🚄
+
+Thanks for reading!

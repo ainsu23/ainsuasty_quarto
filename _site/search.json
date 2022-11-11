@@ -110,5 +110,26 @@
     "title": "Hands On Machine Learning with R",
     "section": "3. Feature filtering",
     "text": "3. Feature filtering\n\n\n\n\n\n\nImportant\n\n\n\nFor some models, increasing features not always make the output better, instead, it can affect the processing time and cost of computation.\n\n\nThe following images are taken from the book referenced at the beginning of the blog. On the left, it shows the performance metric vs # features and on the right, it shows the processing time taken to train a model.\n\nPerformance vs FeaturesProcessing Time vs Features\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nZero and near-zero variance variables are target to eliminate as features! Meaning the feature only has a single value or not useful information to the model\n\n\nIn order to remove zero or near-zero variables, use the following functions from recipes packages:\n\names_recipe %>% \n  recipes::step_nzv() %>% # near zero variance elimiate\n  recipes::step_zv() # zero variance eliminate\n\n\nNumeric feature engineering\n\nSkewnessStandarization\n\n\nIn order to correct Skewness, normalize. Use BoxCox for positive features, in case of negative features use YeoJohnson.\n\names_recipe %>% \n  recipes::step_BoxCox() #positive features\n  # recipes::step_YeoJohnson() #include negative features\n\n\n\n“Standarization includes centering and scaling so that numeric variables have zero mean and unit variance, which provides a common comparable unit of measure across all the variables”\n“Models that incorporate smooth functions of input features are sensitive to the scale of the inputs. Many algorithms use linear functions within their algorithms, some more obvious (e.g., GLMs and regularized regression) than others (e.g., neural networks, support vector machines, and principal components analysis). Other examples include algorithms that use distance measures such as the Euclidean distance (e.g., k nearest neighbor, k-means clustering, and hierarchical clustering).”\n\n\n\n\n\n\nImportant\n\n\n\nHowever, you should standardize your variables within the recipe blueprint so that both training and test data standardization are based on the same mean and variance. This helps to minimize data leakage\n\n\n\names_recipe %>%\n  step_center(all_numeric(), -all_outcomes()) %>%\n  step_scale(all_numeric(), -all_outcomes())\n\n\n\n\n\n\nCategorical feature engineering\nSome models requires all features to be numerical.\n\nLumping\nIn some cases, there are some levels of a categorical variable that have few observations, therefore, we can agrupated them in one level with step_other. However, lumping should be used sparingly as there is often a loss in model performance (Kuhn, Max, and Kjell Johnson. 2013. Applied Predictive Modeling. Vol. 26. Springer.).\n\n\nOne-hot & dummy encoding\nA categorical column could be converted to a set of binaries variables. However, some models, such as, ordinary linear regression and neural networks, might have problems with collinearity (collinearity, in statistics, correlation between predictor variables (or independent variables), such that they express a linear relationship in a regression model. When predictor variables in the same regression model are correlated, they cannot independently predict the value of the dependent variable). Therefore, dummy step would remove one binary variable to not create a collinearity.\n\nrecipe(Sale_Price ~ ., data = ames_train) %>%\n  step_dummy(all_nominal(), one_hot = TRUE) # One-hot encoding\n  # step_dummy(all_nominal()) # dummy encoding\n\n\n\n\nLabel encoding\nIt generates the number order of the levels and it is done with step_integer()\n\n\n\n\n\n\nImportant\n\n\n\nFor ordered factors you could also use step_ordinalscore().\n\n\n\n\nPutting the process together\nProcess together Fundamentals"
+  },
+  {
+    "objectID": "more.html",
+    "href": "more.html",
+    "title": "And more",
+    "section": "",
+    "text": "About me\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "more/about_me.html",
+    "href": "more/about_me.html",
+    "title": "About me",
+    "section": "",
+    "text": "(a) MSc in Statistics and Operation Research\n\n\n\n\n\n\n\n(b) Travelling\n\n\n\n\nFigure 1: Happy moments\nMy name is Andrés Felipe Insuasty Ch. (Please call me: Insu),\nI am from Cali, Colombia. Capital of salsa dancing 💃, full of tastes in its food, beauty of the people and great parties or festivals .\nOn 2022 I got married  in Pasto, Colombia with Klaudia from Poland, On 23rd of September 2022, I turned 32 years in Bogotá. Same year, on November, I will be the father  of Oliver.\nCheck my resume for professional information"
+  },
+  {
+    "objectID": "more/about_me.html#projects",
+    "href": "more/about_me.html#projects",
+    "title": "About me",
+    "section": "PROJECTS 📖",
+    "text": "PROJECTS 📖\nAll would be uploaded to my GitHub\n\nHOBBIES 😎\nSome fun facts about me:\n\nI used to practice Karate , Soccer .\nI love biking and jogging.\nLove dancing Salsa\nLearning to take pictures Check my Instagram 📷\nSome cooking recipies explained by me:\n\n\nRacuchy de Manzana, Polish recipy 🍎😋\n\n\nTravelling a lot around the world✈️🚄\n\nThanks for reading!"
   }
 ]

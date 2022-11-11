@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>ainsuasty.com/rworld/DataScience/HOML_tidymodels.html</loc>
-    <lastmod>2022-11-07T15:07:02.552Z</lastmod>
+    <lastmod>2022-11-10T03:43:56.256Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/DataScience.html</loc>
-    <lastmod>2022-11-07T15:05:44.834Z</lastmod>
+    <lastmod>2022-11-10T03:43:57.293Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/rworld/Shiny/data_structures.html</loc>
@@ -26,10 +26,18 @@
   </url>
   <url>
     <loc>ainsuasty.com/rworld.html</loc>
-    <lastmod>2022-11-06T21:14:26.283Z</lastmod>
+    <lastmod>2022-11-10T03:52:48.005Z</lastmod>
   </url>
   <url>
     <loc>ainsuasty.com/index.html</loc>
-    <lastmod>2022-11-05T20:34:54.526Z</lastmod>
+    <lastmod>2022-11-11T04:13:30.724Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/more.html</loc>
+    <lastmod>2022-11-11T03:48:28.118Z</lastmod>
+  </url>
+  <url>
+    <loc>ainsuasty.com/more/about_me.html</loc>
+    <lastmod>2022-11-11T03:45:58.035Z</lastmod>
   </url>
 </urlset>

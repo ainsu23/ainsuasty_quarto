@@ -1,6 +1,6 @@
 ---
 title: "Andrés Felipe Insuasty Ch."
-subtitle: "Data Scientist"
+subtitle: "Data Scientist & Dad"
 image: image/ainsuasty.png
 about: 
   template: trestles
@@ -24,5 +24,3 @@ Hola | Hi | Cześć
 
 I love learn and share what I have learned, for that reason, I share with you
 personal experiences and profesional projects developing `Data Science`.
-
-
