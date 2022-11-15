@@ -243,6 +243,13 @@ cat(sprintf("Objective: %f\n", ampl$getObjective("Profit")$value()))
 # Get the values of the variable assign in a data.frame
 df <- ampl$getVariable("assign")$getValues()
 
+df <- df %>% 
+  rename(
+    seller_id = index1,
+    client_id = index0,
+    solution = assign.val
+  ) %>% 
+  mutate(solution = round(solution))
 
 ampl$close()
 ```
@@ -278,25 +285,29 @@ subject to capacity_constrain {j in Commercials}:
 Some clients were not assigned due to capacity of the sales force.
 :::
 ```{r}
+
 df %>% 
   DT::datatable(filter = 'top')
 ```
 
 
 ## Constrain capacity
+
 ```{r}
+
 df %>% 
-  group_by(index1) %>% 
-  summarise(num_clients = sum(assign.val)) %>% 
+  group_by(seller_id) %>% 
+  summarise(num_clients = sum(solution)) %>% 
   DT::datatable(filter = 'top')
 ```
 
 
 ## Constrain assign 
 ```{r}
+
 df %>% 
-  group_by(index0) %>% 
-  summarise(num_commercials = sum(assign.val)) %>% 
+  group_by(client_id) %>% 
+  summarise(num_commercials = sum(solution)) %>% 
   DT::datatable(filter = 'top')
 
 ```
