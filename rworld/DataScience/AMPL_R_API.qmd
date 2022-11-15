@@ -1,0 +1,306 @@
+---
+title: "AMPL R API"
+subtitle: "Operations Research"
+categories: ["Prescriptive Analytics", "AMPL", "MIP"]
+image: ../../image/AMPL_Free.PNG
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
+format: 
+  html:
+    css: css/blogs.css
+---
+
+Have you ever asked, How to optimize your commercial process with Mathematical
+Optimization (field: Operations Research)?
+
+Operations Research is an old field that have had improved many industries around
+the world with the use of mathematics, it helps to model a real problem with
+an objective function and constrains associated to it.
+
+In this post, I would show how you can run an optimization problem from R using
+the integration with AMPL (Optimization software). To get more details about this
+integration, please follow this [link](https://rampl.readthedocs.io/en/latest/index.html)
+
+## Libraries
+In order to install `rAMPL` it is important to have the lastest version of RTools
+installed.
+[**Getting started** session from AMPL webiste.](https://rampl.readthedocs.io/en/latest/getting-started.html)
+
+As long as I, used `renv` for building my blog I use the following code:
+```{r}
+#| eval: false
+
+renv::install("https://ampl.com/dl/API/rAMPL.tar.gz", repos=NULL, INSTALL_opts=c("--no-multiarch", "--no-staged-install"))
+```
+
+```{r}
+#| warning: false
+library(rAMPL)
+library(dplyr)
+library(DT)
+```
+
+```{r}
+#| echo: false
+env <- new(Environment, "c:/Users/insu803338/Documents/Proyectos/amplide.mswin64/ampl.mswin64/")
+options("scipen"=100, "digits"=4)
+```
+
+
+## rAMPL manage Class structure 
+
+The idea behind this package is to manage the optimization problem as an instance 
+of a class. 
+
+That means a variable with the content of the class needs to be created. This object
+will contains the structure of the problem, each time the user need to introduces  
+information. For example: the optimization formulation is build in the `eval` method
+or loaded from a `.mod` file.
+
+In case you struggle with this concept of classes, you can check the post
+[Data Structures with R6Class](../Blog/data_structures.qmd)
+
+```{r}
+
+# env <- new(Environment, "full path to the AMPL installation directory")
+ampl <- new(AMPL, env)
+
+ampl$eval("var x;")
+ampl$eval("maximize z: x;")
+ampl$eval("subject to c: x<=10;")
+
+x <- ampl$getVariable("x")
+
+ampl$solve()
+#
+# # At this point x$value() evaluates to 10
+print(x$value())  # prints 10
+
+ampl$close()
+
+```
+
+## Assign clients to commercials
+In a previous job, I worked as the responsible of commercials campaigns and one 
+task was to assign the clients to the commercials having into account some 
+constrains; such as: 
+
+  1.   Monthly capacity by hierarchy
+  2.   One client had to be attended by one salesperson 
+  3.   One commercial with XX knowledge could not attend one client that would 
+  requires attention on KK.
+
+This task was done with excel creating pivot tables and crossing them and counting manually 
+which client was assigned and tried to reach the capacity constrain. Nevertheless, 
+this problem is a classic problem to be solved with operations research.
+
+### Parameters
+```{r}
+n_clients <- 74
+n_commercials <- 4
+n_campaigns <- 4
+n_rol <- 3
+```
+
+### Data
+The data used was generated using R and stored in dataframes. AMPL can read
+dataframes, so it is not need of having the data vectorized, as for example,
+in `ompr package`.
+
+::: {.panel-tabset}
+
+## Commercial
+
+This table has the list of workers in sales. For each person, contains the rol,
+the conversion_rate (average), and capacity in the month.
+```{r}
+
+commercials <- data.frame(
+  "seller_id" = sample(1:n_commercials, replace = FALSE),
+  "rol" = 1:n_commercials %>% 
+      purrr::map(function(x){
+        sample(LETTERS[1:n_rol],1,replace = TRUE)
+      }) %>% 
+    unlist(),
+  "convertion_rate" = sample(20:100, n_commercials, replace = FALSE) / 100
+  ) %>% 
+  left_join(
+    data.frame(
+      "rol" = LETTERS[1:n_rol],
+      "capacity" = 1:n_rol %>% 
+          purrr::map(function(x){
+            sample(10:20,1,replace = FALSE)
+          }) %>% 
+        unlist()
+    ),
+    by = "rol"
+    )
+commercials %>% arrange(seller_id) %>% DT::datatable()
+```
+
+## Clients
+
+This table has the list of clients and campaigns to be offer.
+
+```{r}
+clients <- data.frame(
+  "client_id" = sample(1:n_clients,replace = FALSE),
+  "campaign" = 1 %>% purrr::map(function(x){
+    paste("campaign_",sample(1:n_campaigns, n_clients, replace = TRUE),sep = "")
+  }) %>% unlist()
+) %>% 
+  left_join(
+    data.frame(
+      "campaign" = paste0("campaign_", sample(1:n_campaigns, n_campaigns, replace = FALSE)),
+      "benefit" = 1:n_campaigns %>% 
+          purrr::map(function(x){
+            sample(100:1000, 1, replace = FALSE)
+          }) %>% 
+        unlist()
+    ),
+    by = "campaign"
+  )
+clients %>% arrange(client_id) %>% DT::datatable()
+```
+
+## Campaigns
+
+This table has which role can attend each campaign.
+```{r}
+
+campaigns <- data.frame(
+  "campaign" = paste("campaign_",1:n_campaigns,sep = ""),
+  "rol" = 1:(n_campaigns) %>% purrr::map(function(x){
+    sample(LETTERS[1:n_rol],1,replace = TRUE)
+  }) %>% unlist()
+) %>% distinct()
+
+campaigns %>% arrange(rol) %>% DT::datatable()
+```
+
+## Joined tables
+
+Finally, the previous tables are joined to check data before start modelling.
+```{r}
+finnal <- clients %>% 
+  left_join(campaigns, by = "campaign") %>% 
+  left_join(commercials, by = "rol") %>% 
+  mutate(benefit = benefit * convertion_rate)
+
+finnal %>% DT::datatable(filter = 'top')
+```
+
+
+:::
+
+### Model
+
+Now it is time to model, it is a good practice (even in AMPL) to have the .model,
+.data and .run files separated in one folder. As I build here the data, I just 
+create the data as vectors for sets or scalar parameters or dataframes for tables
+
+::: {.panel-tabset}
+
+## Model run in R
+
+```{r}
+
+## Build data to pass AMPL Model
+
+### sets
+Clients <- distinct(finnal, client_id)[,1]
+Commercials <- distinct(finnal, seller_id)[,1]
+### paramets associated to commercial
+capacities <- distinct(finnal, seller_id, capacity)[,2]
+### parameter associated to client and commercial
+benefit <- select(finnal, client_id, seller_id, benefit) %>% 
+  tidyr::pivot_wider(names_from = seller_id, values_from = benefit) %>% 
+  mutate(across(where(is.numeric), ~tidyr::replace_na(.x, 1))) %>% 
+  tidyr::pivot_longer(!client_id, names_to = "seller_id", values_to = "benefit") %>% 
+  mutate(seller_id = as.numeric(seller_id))
+
+## .run 
+
+ampl <- new(AMPL, env) # Create class ampl
+ampl$read("models/assign.mod") # Read model located in folder models
+
+# Defines sets data and parameters.
+
+ampl$setData(data.frame(Clients = Clients), 1, "Clients") 
+ampl$setData(
+  data.frame(Commercials = Commercials, capacity = capacities), 
+  1, 
+  "Commercials"
+)
+ampl$setData(benefit, 2, "")
+
+ampl$solve()
+
+## Get objective solution
+cat(sprintf("Objective: %f\n", ampl$getObjective("Profit")$value()))
+
+# Get the values of the variable assign in a data.frame
+df <- ampl$getVariable("assign")$getValues()
+
+
+ampl$close()
+```
+
+## AMPL .mod
+
+Contains the formulation of the problem written in `AMPL language`.
+
+```{{AMPL}}
+
+set Clients;
+set Commercials;
+
+param capacity {Commercials} > 0;
+param benefit {Clients, Commercials} >= 0;
+
+var assign {Clients, Commercials} binary;
+
+maximize Profit:
+  sum {i in Clients, j in Commercials} benefit[i,j] * assign[i,j];
+  
+subject to Supply {i in Clients}:
+  sum {j in Commercials} assign[i,j] <= 1;
+subject to capacity_constrain {j in Commercials}:
+  sum {i in Clients} assign[i,j] <= capacity[j];
+```
+:::
+
+::: {.panel-tabset}
+
+## Solution
+:::{.callout-note}
+Some clients were not assigned due to capacity of the sales force.
+:::
+```{r}
+df %>% 
+  DT::datatable(filter = 'top')
+```
+
+
+## Constrain capacity
+```{r}
+df %>% 
+  group_by(index1) %>% 
+  summarise(num_clients = sum(assign.val)) %>% 
+  DT::datatable(filter = 'top')
+```
+
+
+## Constrain assign 
+```{r}
+df %>% 
+  group_by(index0) %>% 
+  summarise(num_commercials = sum(assign.val)) %>% 
+  DT::datatable(filter = 'top')
+
+```
+
+:::
+
+Thanks for reading, Hope this would be helpfull for you or your organization.
