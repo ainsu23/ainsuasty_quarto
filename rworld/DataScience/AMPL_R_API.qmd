@@ -97,7 +97,7 @@ this problem is a classic problem to be solved with operations research.
 
 ### Parameters
 ```{r}
-n_clients <- 74
+n_clients <- 84
 n_commercials <- 4
 n_campaigns <- 4
 n_rol <- 3
@@ -221,8 +221,14 @@ benefit <- select(finnal, client_id, seller_id, benefit) %>%
   mutate(seller_id = as.numeric(seller_id))
 
 ## .run 
-
 ampl <- new(AMPL, env) # Create class ampl
+
+# Setting solver to be used. Due to limit license (max 300 vars or contrains), 
+# I change to HiGHS solver, allowed with AMPL CE..
+# an open source solver.
+ampl$setOption("solver","HiGHS") 
+
+#reading model written in .mod file (AMPL)
 ampl$read("models/assign.mod") # Read model located in folder models
 
 # Defines sets data and parameters.
