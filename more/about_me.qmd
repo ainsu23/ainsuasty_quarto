@@ -20,10 +20,9 @@ food{{< fa fork-knife >}}, beauty of the people and great parties or festivals
 
 On 2022 I got married {{< fa ring-wedding >}} in Pasto, Colombia with **Klaudia** 
 from Poland, On {{< fa cake-candles >}}23rd of September 2022, I turned 32 years 
-in Bogotá. Same year, on November, I will be the father {{< fa baby >}} of Oliver.
+in Bogotá. Same year, on November 21st, I became a **happy** full time dad {{< fa baby >}} of **Oliver**.
 
-![](../image/oliver.jpg){width=40% fig-align="center"}
-
+![](../image/Oliver.jpeg){width=60% fig-align="center"}
 
 [Check my resume for professional information](../cv.html)
 
