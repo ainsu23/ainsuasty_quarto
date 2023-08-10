@@ -1,6 +1,5 @@
 project:
   type: website
-
 website:
   title: "{{< fa user-ninja >}}ainsuasty"
   image: image/Insu.png
@@ -17,6 +16,8 @@ website:
       - href: more.qmd
         text: "{{< fa car-side >}} And more"
     right: 
+      - href: books.qmd
+        text: "{{< fa book >}} Recommended Books"
       - href: cv.html
         text: "{{< fa id-card >}} Vitae"
       

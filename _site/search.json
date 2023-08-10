@@ -1,5 +1,180 @@
 [
   {
+    "objectID": "Books/AMPL/chapter_1.html",
+    "href": "Books/AMPL/chapter_1.html",
+    "title": "Chapter 1",
+    "section": "",
+    "text": "Hi Folks!\nSince my bachelor degree I always wanted to resolved the exercises of AMPL’s book, In my course I studied with AMPL and in my master I also used AMPL, I find it very easy to get into operation research world!.\nHave fun with me during solving some exercises from the book, I have used the API’s that AMPL is giving us, so some problems are solved using python and others with R.\nI tried to keep the original model and data in different files and folders. When a model requires to be changed, I do it using the ampl API."
+  },
+  {
+    "objectID": "Books/AMPL.html",
+    "href": "Books/AMPL.html",
+    "title": "AMPL Solutions",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nSubtitle\n\n\n\n\nDescription\n\n\n\n\n\n\nChapter 1\n\n\n\n\n\n\n\nSolution to exercises in Chapter 1\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "books.html",
+    "href": "books.html",
+    "title": "Recommended Books",
+    "section": "",
+    "text": "AMPL Solutions\n\n\n\n\n\n\n\n\n\n\n\n\n \n\n\n\nMastering Shiny\n\n\nSolution to excercises in Mastering Shiny\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Andrés Felipe Insuasty Ch.",
+    "section": "",
+    "text": "Hola | Hi | Cześć\nI love learn and share what I have learned, for that reason, I share with you personal experiences and profesional projects developing Data Science."
+  },
+  {
+    "objectID": "more/about_me.html",
+    "href": "more/about_me.html",
+    "title": "About me",
+    "section": "",
+    "text": "(a) MSc in Statistics and Operation Research\n\n\n\n\n\n\n\n(b) Travelling\n\n\n\n\nFigure 1: Happy moments\nMy name is Andrés Felipe Insuasty Ch. (Please call me: Insu),\nI am from Cali, Colombia. Capital of salsa dancing 💃, full of tastes in its food, beauty of the people and great parties or festivals .\nOn 2022 I got married  in Pasto, Colombia with Klaudia from Poland, On 23rd of September 2022, I turned 32 years in Bogotá. Same year, on November 21st, I became a happy full time dad  of Oliver.\nCheck my resume for professional information"
+  },
+  {
+    "objectID": "more/about_me.html#projects",
+    "href": "more/about_me.html#projects",
+    "title": "About me",
+    "section": "PROJECTS 📖",
+    "text": "PROJECTS 📖\nAll would be uploaded to my GitHub\n\nHOBBIES 😎\nSome fun facts about me:\n\nI used to practice Karate , Soccer .\nI love biking and jogging.\nLove dancing Salsa\nLearning to take pictures Check my Instagram 📷\nSome cooking recipies explained by me:\n\n\nRacuchy de Manzana, Polish recipy 🍎😋\n\n\nTravelling a lot around the world✈️🚄\n\nThanks for reading!"
+  },
+  {
+    "objectID": "more.html",
+    "href": "more.html",
+    "title": "And more",
+    "section": "",
+    "text": "About me\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "rworld/Blog/data_structures.html",
+    "href": "rworld/Blog/data_structures.html",
+    "title": "Data Structures with R6Class",
+    "section": "",
+    "text": "Data Structures\nThis post is oriented to create classes that recreates data structures and explanaition for each. Knowing this may help you improve as a programmer because is the basic of each language you would work R, python, c, javascript, others..\nData structures to work with:\n\nArrays\nLinkedLists\nHashtable\nStacks\nQueues\nTrees\nGraphs\n\n\nArraysLinkedLists\n\n\nR manages dinamics vectors, this means that one index can be added to an existed vector. For the purpose of this blog I would create a class R6Class to simmulate an Array. Within this array, you would be able to get an index, push a new item at the end, pop last item, delete an index.\n\nmyarray <- R6::R6Class(\n  classname = \"myarray\",\n  public = list(\n    initialize = function() {\n      self$array_length <- 0\n      self$array_data <- c()\n    },\n    array_length = NULL,\n    array_data = NULL,\n    get_value = function(index) {\n      return(self$array_data[index])\n    },\n    push = function(value) {\n      self$array_data[self$array_length + 1] = value\n      self$array_length <- length(self$array_data)\n    },\n    pop = function() {\n      lastItem <- self$array_data[self$array_length]\n      self$array_data <- self$array_data[-self$array_length]\n      self$array_length <- length(self$array_data)\n      return(lastItem)\n    },\n    delete = function(index) {\n      self$array_data <- self$array_data[-index]\n      self$array_length <- length(self$array_data)\n    }\n  )\n)\nmyarray = myarray$new()\nmyarray$push(2)\nmyarray$pop()\n\n\n\nLinkedLists are a set of nodes (that contains information related to where the data is stored in pc memory (pointers) and which node is next or previous). Until my understanding, R does not have linkedList in its implementation, list are manage as vectors or arrays. There exists 2 types or linked lists, one is single which it has just one direction and double which has two directions.\nNevertheless, let’s implement an double linkedList with R6Class:\n\nmy_Linked_List <- R6::R6Class(\n  classname = \"linkedList\",\n  public = list(\n    # Initialize with the first value of the linkedList, .next would be NULL\n    initialize = function(value) {\n      self$list_pointer <- list(new.env())\n      self$list_pointer[[1]]$value <- value\n      self$index_head <- 1\n      self$index_tail <- 1\n      self$list_pointer[[1]]$index_next <- NULL\n      self$list_pointer[[1]]$index_prev <- NULL\n    },\n    list_pointer = NULL,\n    index_head = NULL,\n    index_tail = NULL,\n    # next is an used variable from R.\n    get_index = function(index) {\n      if (self$index_tail < index) stop(\"index not created yet!\")\n      return(self$list_pointer[[index]]$value)\n    },\n    insert = function(value) {\n      self$list_pointer <- self$list_pointer %>%\n        append(new.env())\n      self$index_tail <- self$index_tail + 1\n      self$list_pointer[[self$index_tail]]$index_prev <-\n        self$list_pointer[[self$index_tail - 1]]\n      self$list_pointer[[self$index_tail - 1]]$index_next <-\n        self$list_pointer[[self$index_tail]]\n      self$list_pointer[[self$index_tail]]$value <- value\n      self$list_pointer[[self$index_tail]]$index_next <- NULL\n      return(self$list_pointer)\n    }\n  )\n)"
+  },
+  {
+    "objectID": "rworld/Blog/interact_with_firebase.html",
+    "href": "rworld/Blog/interact_with_firebase.html",
+    "title": "How to interact with firebase from a shinyapp",
+    "section": "",
+    "text": "At the planning phase of creating a shiny app you would find the importance of having storing data and interact with the stored system.\nYou might have interaction with data bases using dbplyr, DBI, among others packages. Reading this blog you will find how to use httr in order to access or modify stored data in firebase."
+  },
+  {
+    "objectID": "rworld/Blog/interact_with_firebase.html#interacting-with-firebase-from-r",
+    "href": "rworld/Blog/interact_with_firebase.html#interacting-with-firebase-from-r",
+    "title": "How to interact with firebase from a shinyapp",
+    "section": "Interacting with firebase from R",
+    "text": "Interacting with firebase from R\nFirstly, you need to have all setup in firebase so R can connect trough API, it is recommended to store the API_KEY, firebase_url and password in the .Renviron file in the root of the app (where ui.R and server.R are stored or app.R).\nSecondly, it is very important to be familiar with JSON structures in order to design how you are going to store your data in firebase.\nFrom previous, you might want to bring the information, update, delete, insert, among others. Let’s build together the select.\n\nDefine JSON structure to store data\nIn my learning polish app, I design to have a list of words, this list would contains a list of categories, and each of this would have the register with the word, translation in spanish and date of insertion in a simple text.\nFor the purpose of the blog I am going to use a fragment of data from my learning polish shiny app.\n\n{\n  \"words\" : {\n    \"animals\" : [\n        \"pies: perro: 2022-01-23\",\n        \"kot: gato: 2022-01-23\",\n        \"biedronka: mariquita: 2022-01-23\",\n        \"Ptak: Pájaro: 2022-01-23\",\n        \"Komar: Mosquito: 2022-01-23\", ],\n    \"clothes\" : [\n        \"buty: zapatos:2022-01-26\",\n        \"spodnie: pantalón: 2022-01-30\",\n        \"sweter: sueter: 2022-02-22\",\n        \"krawat: corbata: 2022-02-22\",\n        \"koszula: camisa: 2022-02-22\" ],\n  }\n}\n\n\n\nSelecting data from firebase\nThe firebase url given by google is the place where your data is stored. It will look somethis as followwing: “https://name-hash_given_firebase-default-rtdb.firebaseio.com/”\nIf you would like to access to the words inside the category clothes, you might add the list words and clothes in the previous link, as follors:\n“https://name-hash_given_firebase-default-rtdb.firebaseio.com/words/clothes”\nIn the documentary from firebase, you can find that you need to add .json when you are using an API (I invite you to read documentation to more detail).\n\nselect_words <- function(categories) {\n    words <- httr::content(\n      httr::GET(\n        paste0(\n          Sys.getenv(\"FIREBASE_URL\"), \"/words/\", categories, \".json\")\n      )\n    ) %>%\n    purrr::flatten() %>%\n    unlist()\n  return(words)\n}\n\n\nselect_categories <- function() {\n  categories <- content(GET(\n    paste0(Sys.getenv(\"FIREBASE_URL\"), \"/words/.json\")\n  ))\n  return(categories)\n}\n\n\n\nInsert data to firebase:\nFor inserting data you can use the function PUT from httr. Into words variable we bring the words from category so we can add the new word to already stored words and converted to json with jsonlite package.\n\nadd_words <- function(categories, word) {\n  if (word != \"\") {\n    words <- select_words(categories)\n    body <- jsonlite::toJSON(c(words, word),\n      pretty = TRUE\n    )\n    response <- httr::PUT(\n      paste0(Sys.getenv(\"FIREBASE_URL\"), \"/words/\", categories, \".json\"),\n      body = body\n    )\n  }\n}\n\n\n\nDelete data stored in firebase from R.\nThe following function receives the name of the category and one or more words (example: ptak and komar).\nThe first purrr::map compares each word with the list of words inside the category and save the position where it is stored in firebase.\nThe second purrr::map iterates over positions and tells firebase wich position to DELETE.\n\ndelete_words <- function(categories, word) {\n  words_delete <- purrr::map(\n    .x = stringr::str_to_lower(word),\n    .f = function(.x) {\n      content(GET(\n        paste0(Sys.getenv(\"FIREBASE_URL\"), \"/words/\", categories, \".json\")\n      )) %>%\n        stringi::stri_trans_tolower(.) %>%\n        unique() %>%\n        stringr::str_starts(.x) %>%\n        which() - 1\n    }\n  )\n  purrr::map(\n    .x = words_delete,\n    .f = function(.x) {\n      httr::DELETE(\n        paste0(\n          Sys.getenv(\"FIREBASE_URL\"), \"words/\", categories, \"/\", .x, \".json\"\n        )\n      )\n    }\n  )\n}\n\nThanks for reading. Any comments or feedback I would love to hear from you, you can have my info from contact."
+  },
+  {
+    "objectID": "rworld/Blog/PowerBI_R.html",
+    "href": "rworld/Blog/PowerBI_R.html",
+    "title": "PowerBI Leverage with R",
+    "section": "",
+    "text": "PowerBI it’s a completed tool for creating dashboard, nevertheless, you can make it so much more completed leveraging with others languages, such as, R or Python."
+  },
+  {
+    "objectID": "rworld/Blog/PowerBI_R.html#ryan-e-wade-conference",
+    "href": "rworld/Blog/PowerBI_R.html#ryan-e-wade-conference",
+    "title": "PowerBI Leverage with R",
+    "section": "Ryan E Wade conference",
+    "text": "Ryan E Wade conference\nWhen at my work I was assigned to co-created a dashboard in powerBI, I inmediately remember the confrence from Ryan E Wade about levering powerBI with R."
+  },
+  {
+    "objectID": "rworld/Blog/PowerBI_R.html#comparing-sales-within-months---dashboard",
+    "href": "rworld/Blog/PowerBI_R.html#comparing-sales-within-months---dashboard",
+    "title": "PowerBI Leverage with R",
+    "section": "Comparing sales within months - dashboard",
+    "text": "Comparing sales within months - dashboard\nThis blog contains a very simple dashboard with just one table, my purpose indeed, it is just to show how with R we can create as many columns with hexcode colors to make change a color of a column automatically, making the dashboard reproducible in the time.\n\nlibrary(tidyverse)\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──\n✔ ggplot2 3.3.6      ✔ purrr   0.3.5 \n✔ tibble  3.1.8      ✔ dplyr   1.0.10\n✔ tidyr   1.2.1      ✔ stringr 1.4.1 \n✔ readr   2.1.3      ✔ forcats 0.5.2 \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\n\n\nTable Sales\n A sales table was created with just seller_id, month and the sales made.\nAfter that, two columns were created to store sales_avg and delays_avg.\n\n\nCode\nSales <- tibble::tribble(\n  ~seller_id, ~month, ~sales, ~delays_percentage,\n  1, 2, 200,0.2,\n  1, 1, 400,0.04,\n  1, 3, 140,0.29,\n  1, 4, 390,0.11,\n  1, 5, 260,0.34,\n  1, 6, 130,0.23,\n  2, 1, 300,0.1,\n  2, 2, 317,0.07,\n  2, 3, 263,0.13,\n  2, 4, 142,0.21,\n  2, 5, 361,0.03,\n  2, 6, 134,0.16,\n  3, 1, 124,0.25,\n  3, 2, 374,0.23,\n  3, 3, 762,0.2,\n  3, 4, 163,0.27,\n  3, 5, 186,0.12,\n  3, 6, 177,0.09,\n) %>% \n  as.data.frame() %>% \n  mutate(\n      sales_avg = round(mean(sales), 1),\n      delays_avg = round(mean(delays_percentage), 2)        \n  ) \n\nSales\n\n\n   seller_id month sales delays_percentage sales_avg delays_avg\n1          1     2   200              0.20     267.9       0.17\n2          1     1   400              0.04     267.9       0.17\n3          1     3   140              0.29     267.9       0.17\n4          1     4   390              0.11     267.9       0.17\n5          1     5   260              0.34     267.9       0.17\n6          1     6   130              0.23     267.9       0.17\n7          2     1   300              0.10     267.9       0.17\n8          2     2   317              0.07     267.9       0.17\n9          2     3   263              0.13     267.9       0.17\n10         2     4   142              0.21     267.9       0.17\n11         2     5   361              0.03     267.9       0.17\n12         2     6   134              0.16     267.9       0.17\n13         3     1   124              0.25     267.9       0.17\n14         3     2   374              0.23     267.9       0.17\n15         3     3   762              0.20     267.9       0.17\n16         3     4   163              0.27     267.9       0.17\n17         3     5   186              0.12     267.9       0.17\n18         3     6   177              0.09     267.9       0.17\n\n\n\n\nCreation of new columns\n\n\n\n\n\nThe principal idea of the following function called compare it’s to generate the number of columns that the final user wants to compare and generate de hexcode column to apply functional conditions in PowerBI.\n\nfunctionFinal table\n\n\nThe compare function recibe the table, 2 columns to compare and the function to apply. Returns a dataframe with a hexcode color column.\n\ncompare <- function(.base, .column1, .column2, .f) {\n  column <- paste0(\"color_\",{{ .column1}})\n  funcion <- .Primitive({{ .f }})\n  maximo <- .f == \"max\"\n\n base2 <- .base %>%\n    mutate(\n      {{ column }} := ifelse(\n            !!rlang::sym(.column1) >= funcion(!!rlang::sym(.column2), na.rm = TRUE),  \n            ifelse(maximo,\"#00FF00\", \"#FF0000\"), \n            ifelse(!maximo, \"#00FF00\",\"#FF0000\")\n      )\n    ) %>%\n    ungroup() %>%\n    select({{ column }})\n  return(base2)\n}\n\n\n\nStore the columns you want to compare in column1 and column2, also, write the function you wants to apply (max or min).\n\ncolumn1 <- list(\"sales\", \"delays_percentage\")\ncolumn2 <- list(\"sales_avg\", \"delays_avg\")\n.f<- list(\"max\", \"min\")\n\n# Iterate throug list of lists with pmap\ntabla <- purrr::pmap(\n  .l = list(column1, column2, .f),\n  .f = function(.x, .y, .z){\n    Sales %>%\n        compare(.x, .y, .z)\n  }\n) %>%\n  # Convert list into a dataframe\n  purrr::flatten_df() %>%\n  # column bind base with new columns flatten\n  cbind(Sales, .)\n\ntabla\n\n   seller_id month sales delays_percentage sales_avg delays_avg color_sales\n1          1     2   200              0.20     267.9       0.17     #FF0000\n2          1     1   400              0.04     267.9       0.17     #00FF00\n3          1     3   140              0.29     267.9       0.17     #FF0000\n4          1     4   390              0.11     267.9       0.17     #00FF00\n5          1     5   260              0.34     267.9       0.17     #FF0000\n6          1     6   130              0.23     267.9       0.17     #FF0000\n7          2     1   300              0.10     267.9       0.17     #00FF00\n8          2     2   317              0.07     267.9       0.17     #00FF00\n9          2     3   263              0.13     267.9       0.17     #FF0000\n10         2     4   142              0.21     267.9       0.17     #FF0000\n11         2     5   361              0.03     267.9       0.17     #00FF00\n12         2     6   134              0.16     267.9       0.17     #FF0000\n13         3     1   124              0.25     267.9       0.17     #FF0000\n14         3     2   374              0.23     267.9       0.17     #00FF00\n15         3     3   762              0.20     267.9       0.17     #00FF00\n16         3     4   163              0.27     267.9       0.17     #FF0000\n17         3     5   186              0.12     267.9       0.17     #FF0000\n18         3     6   177              0.09     267.9       0.17     #FF0000\n   color_delays_percentage\n1                  #FF0000\n2                  #00FF00\n3                  #FF0000\n4                  #00FF00\n5                  #FF0000\n6                  #FF0000\n7                  #00FF00\n8                  #00FF00\n9                  #00FF00\n10                 #FF0000\n11                 #00FF00\n12                 #00FF00\n13                 #FF0000\n14                 #FF0000\n15                 #FF0000\n16                 #FF0000\n17                 #00FF00\n18                 #00FF00"
+  },
+  {
+    "objectID": "rworld/Blog/PowerBI_R.html#final-result-in-powerbi",
+    "href": "rworld/Blog/PowerBI_R.html#final-result-in-powerbi",
+    "title": "PowerBI Leverage with R",
+    "section": "Final result in PowerBI",
+    "text": "Final result in PowerBI\nWith the following result I invite you to integrate R scripts with PowerBI so you can create powerfull apps."
+  },
+  {
+    "objectID": "rworld/Blog/spark_desde_R.html",
+    "href": "rworld/Blog/spark_desde_R.html",
+    "title": "Uso de Spark desde R",
+    "section": "",
+    "text": "El uso de Spark en DataScience es ahora más común por sus grandes beneficios. Algunos son: almacenamiento distribuido, uso de queries como si se estuviera escribiendo en SQL, desarrollo de modelos de machine learning, entre muchos otros.\nRstudio (Posit) ha desarrollado el paquete sparklyr, el cual me parece que es muy completo. Súper recomendado!!\nLos ejercicios de este blog provienen del curso de Udemy: “Taming Big Data with Apache Spark and Python - Hands On!” sin embargo se resolvieron con Sparklyr y la conexión se realiza de forma local."
+  },
+  {
+    "objectID": "rworld/Blog/spark_desde_R.html#cargue-librerías",
+    "href": "rworld/Blog/spark_desde_R.html#cargue-librerías",
+    "title": "Uso de Spark desde R",
+    "section": "Cargue librerías",
+    "text": "Cargue librerías\n\nlibrary(R6)\nlibrary(tidyverse)\nlibrary(sparklyr)"
+  },
+  {
+    "objectID": "rworld/Blog/spark_desde_R.html#clase-r6-spark_conexion.",
+    "href": "rworld/Blog/spark_desde_R.html#clase-r6-spark_conexion.",
+    "title": "Uso de Spark desde R",
+    "section": "Clase R6 spark_conexion.",
+    "text": "Clase R6 spark_conexion.\nLa clase spark_conexion mantiene toda información y métodos relevantes de la conexión a Spark. Permitiendo reutilizarlas en todo el código.\n\nspark_conexion <- R6::R6Class(\n  classname = \"conexion\",\n  public = list(\n    initialize = function() {\n      return(invisible(self))\n    },\n    #' @description\n    #' Crea nuevo objeto de conexión\n    #' @details\n    #' Esta función requiere unas variables de ambiente cargadas para poder\n    #' functionar.\n    connect = function() {\n     self$conn_sp <- sparklyr::spark_connect(master = \"local\")\n      return(invisible(self))\n    },\n    #' @field conn_spark conexion a spack\n    conn_sp  = NULL,\n    #' @descripcion Método para dplyr::copy_to con conexion a spark\n    #' @param tabla_df Data frame\n    #' @param tbl_name Nombre de la tabla en spark\n    copy_to_sp = function(tabla_df, tbl_name) {\n      copy_to(self$conn_sp, tabla_df, tbl_name) \n    },\n    #' @descripcion Método para leer tabla de spark\n    #' @param tbl_name Nombre de la tabla en spark\n    tbl_sp = function(tbl_name) spark_read_table(self$conn_sp, tbl_name)\n  )\n)\n\nconn <- spark_conexion$new()$connect()"
+  },
+  {
+    "objectID": "rworld/Blog/spark_desde_R.html#operaciones-básicas-con-dplyr",
+    "href": "rworld/Blog/spark_desde_R.html#operaciones-básicas-con-dplyr",
+    "title": "Uso de Spark desde R",
+    "section": "Operaciones básicas con dplyr",
+    "text": "Operaciones básicas con dplyr\nArchivo extraído de grouplens.org.\nVentajas de usar spark desde R:\n\nSe pueden usar los verbos de dplyr\nLazy evaluation: Ver que en la parte superior del resultado aparece: # Source: spark<?> [?? x 2])\n\n\ngroup_by y countsummarise, arrangefilter min\n\n\n\nsparklyr::spark_read_text(\n  conn$conn_sp, \n  name = \"movieLens\",\n  \"../../data/u.data\"\n) %>% \n  separate(line, c(\"user id\",\"item id\",\"rating\",\"timestamp\"), sep = \"\\t\") %>% \n  group_by(rating) %>% \n  count()\n\n# Source: spark<?> [?? x 2]\n  rating     n\n  <chr>  <dbl>\n1 3      27145\n2 1       6110\n3 2      11370\n4 4      34174\n5 5      21201\n\n\n\n\nTambién permite usar summarise, arrange y operaciones dentro de summarise cómo round, mean.\n\nsp_fake_friends <- sparklyr::spark_read_csv(\n  conn$conn_sp,\n  name = \"fakefriends\",\n  \"../../data/fakefriends.csv\",\n  header = FALSE,\n  columns = c(\"id\", \"name\", \"age\", \"num_friends\")\n) %>% \n  group_by(age) %>% \n  summarise(num_friends = round(mean(num_friends), 1)) %>% \n  arrange(age)\nsp_fake_friends\n\n# Source:     spark<?> [?? x 2]\n# Ordered by: age\n   age   num_friends\n   <chr>       <dbl>\n 1 18           343.\n 2 19           213.\n 3 20           165 \n 4 21           351.\n 5 22           206.\n 6 23           246.\n 7 24           234.\n 8 25           198.\n 9 26           242.\n10 27           228.\n# … with more rows\n\n\n\n\nLa función dplyr::filter puede entrar en conflicto con la funcion sparklyr::filter\n\nsparklyr::spark_read_csv(\n  conn$conn_sp,\n  name = \"fakefriends\",\n  \"../../data/fakefriends.csv\",\n  header = FALSE,\n  columns = c(\"id\", \"name\", \"age\", \"num_friends\")\n) %>% \n  dplyr::filter(age == min(age))\n\n# Source: spark<?> [?? x 4]\n  id    name    age   num_friends\n  <chr> <chr>   <chr> <chr>      \n1 106   Beverly 18    499        \n2 115   Dukat   18    397        \n3 341   Data    18    326        \n4 377   Beverly 18    418        \n5 404   Kasidy  18    24         \n6 439   Data    18    417        \n7 444   Keiko   18    472        \n8 494   Kasidy  18    194"
+  },
+  {
+    "objectID": "rworld/Blog/spark_desde_R.html#operaciones-con-texto",
+    "href": "rworld/Blog/spark_desde_R.html#operaciones-con-texto",
+    "title": "Uso de Spark desde R",
+    "section": "Operaciones con texto",
+    "text": "Operaciones con texto\nLas operaciones con texto también pueden ser usadas mediante verbos o secuencia tidyverse.\n\nft_tokenizer: Esta función permite almacenar las palabras de la fila en una lista.\n\nft_stop_words_remover: Se eliminan las palabras conexión tales como: a, en,   entre, o, aquí, aún, con, de, e, y, hay, ...\n\n\nsparklyr::spark_read_text(\n  conn$conn_sp,\n  path = \"../../data/Book\"\n) %>% \n  ft_tokenizer(\n    input_col = \"line\",\n    output_col = \"word_list\"\n      \n  ) %>% \n  ft_stop_words_remover(\n    input_col = \"word_list\",\n    output_col = \"wo_stop_words\"\n  ) %>% \n  mutate(palabra = explode(wo_stop_words)) %>% \n  filter(palabra != \"\") %>% \n  group_by(palabra) %>% \n  count() %>% \n  filter(palabra != \"�\") %>% \n  arrange(desc(n)) %>% \n  head(10)\n\n# Source:     spark<?> [?? x 2]\n# Ordered by: desc(n)\n   palabra      n\n   <chr>    <dbl>\n 1 business   290\n 2 time       168\n 3 need       167\n 4 new        150\n 5 product    128\n 6 people     127\n 7 get        122\n 8 work       120\n 9 may        107\n10 want       107"
+  },
+  {
+    "objectID": "rworld/Blog/spark_desde_R.html#machine-learning",
+    "href": "rworld/Blog/spark_desde_R.html#machine-learning",
+    "title": "Uso de Spark desde R",
+    "section": "Machine Learning",
+    "text": "Machine Learning\nEn mi opinión los beneficios que encontré de aplicar ML con sparklyr son:\n\nPipelines: Conjunto de pasos que se desean aplicar al modelo en construcción, es decir, las operaciones a la base, la formula del modelo, seleccion el algoritmo a desarrollar (regresión lineal, árbol de decisión).\nAlgoritmos: Sparklyr usa la librería de ML de Spark, por ende, cuenta con una gran variedad de algoritmos para ser usados.\nTransformaciones: ft_dplyr_transformer permite aplicar operaciones con dplyr y aplicarlo en el pipeline creado.\n\n\nLinear Regression\n\ndataModelo\n\n\n\n\nCódigo\nsdf_regresion <- sparklyr::spark_read_text(\n  conn$conn_sp,\n  path = \"../../data/regression.txt\"\n) %>% \n  separate(line, c(\"x\", \"y\"), \",\") %>% \n  mutate(across(where(is.character), as.numeric))\n\nsdf_regresion\n\n\n# Source: spark<?> [?? x 2]\n       x     y\n   <dbl> <dbl>\n 1 -1.74  1.66\n 2  1.24 -1.18\n 3  0.29 -0.4 \n 4 -0.13  0.09\n 5 -0.39  0.38\n 6 -1.79  1.73\n 7  0.71 -0.77\n 8  1.39 -1.48\n 9  1.15 -1.43\n10  0.13 -0.07\n# … with more rows\n\n\n\n\n\nregresion_pipeline <- sparklyr::ml_pipeline(conn$conn_sp) %>%\n  sparklyr::ft_r_formula(y ~ x) %>%\n  sparklyr::ml_linear_regression()\n\npartitioned_regresion <- sparklyr::sdf_random_split(\n  sdf_regresion,\n  training = 0.7,\n  testing = 0.3\n)\n\nfitted_pipeline <- sparklyr::ml_fit(\n  regresion_pipeline,\n  partitioned_regresion$training\n)\n\npredictions <- sparklyr::ml_transform(\n  fitted_pipeline,\n  partitioned_regresion$testing\n)\n\npredictions\n\n# Source: spark<?> [?? x 5]\n       x     y features  label prediction\n   <dbl> <dbl> <list>    <dbl>      <dbl>\n 1 -3.74  3.75 <dbl [1]>  3.75       3.72\n 2 -2.89  2.89 <dbl [1]>  2.89       2.88\n 3 -2.54  2.39 <dbl [1]>  2.39       2.53\n 4 -2.45  2.44 <dbl [1]>  2.44       2.44\n 5 -2.29  2.35 <dbl [1]>  2.35       2.28\n 6 -2.12  1.9  <dbl [1]>  1.9        2.11\n 7 -2.06  1.95 <dbl [1]>  1.95       2.05\n 8 -2     2.02 <dbl [1]>  2.02       1.99\n 9 -1.97  1.85 <dbl [1]>  1.85       1.96\n10 -1.91  1.86 <dbl [1]>  1.86       1.90\n# … with more rows"
+  },
+  {
+    "objectID": "rworld/Blog.html",
+    "href": "rworld/Blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\nCategories\n\n\nReading Time\n\n\n\n\n\n\nData Structures with R6Class\n\n\nImplement data structures with R6Class\n\n\nR6Class,Data Structures\n\n\n3 min\n\n\n\n\nHow to interact with firebase from a shinyapp\n\n\nFind how to use httr to access or modify stored data in firebase.\n\n\nFirebase\n\n\n4 min\n\n\n\n\nPowerBI Leverage with R\n\n\nLeverage PowerBI apps with R\n\n\nPowerBI,R,functions\n\n\n2 min\n\n\n\n\nUso de Spark desde R\n\n\nBig data con Spark y R\n\n\nSpark,R6Class,Text mining\n\n\n3 min\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "rworld/DataScience/AMPL_R_API.html",
+    "href": "rworld/DataScience/AMPL_R_API.html",
+    "title": "AMPL R API",
+    "section": "",
+    "text": "Have you ever asked, How to optimize your commercial process with Mathematical Optimization (field: Operations Research)?\nOperations Research is an old field that have had improved many industries around the world with the use of mathematics, it helps to model a real problem with an objective function and constrains associated to it.\nIn this post, I would show how you can run an optimization problem from R using the integration with AMPL (Optimization software). To get more details about this integration, please follow this link"
+  },
+  {
+    "objectID": "rworld/DataScience/AMPL_R_API.html#libraries",
+    "href": "rworld/DataScience/AMPL_R_API.html#libraries",
+    "title": "AMPL R API",
+    "section": "Libraries",
+    "text": "Libraries\nIn order to install rAMPL it is important to have the lastest version of RTools installed. Getting started session from AMPL webiste.\nAs long as I, used renv for building my blog I use the following code:\n\nrenv::install(\"Rcpp\", type=\"source\")\nrenv::install(\"https://ampl.com/dl/API/rAMPL.tar.gz\", repos=NULL, INSTALL_opts=c(\"--no-multiarch\", \"--no-staged-install\"))\n\n\nlibrary(rAMPL)\nlibrary(dplyr)\nlibrary(DT)"
+  },
+  {
+    "objectID": "rworld/DataScience/AMPL_R_API.html#rampl-manage-class-structure",
+    "href": "rworld/DataScience/AMPL_R_API.html#rampl-manage-class-structure",
+    "title": "AMPL R API",
+    "section": "rAMPL manage Class structure",
+    "text": "rAMPL manage Class structure\nThe idea behind this package is to manage the optimization problem as an instance of a class.\nThat means a variable with the content of the class needs to be created. This object will contains the structure of the problem, each time the user need to introduces\ninformation. For example: the optimization formulation is build in the eval method or loaded from a .mod file.\nIn case you struggle with this concept of classes, you can check the post Data Structures with R6Class\n\n# env <- new(Environment, \"full path to the AMPL installation directory\")\nampl <- new(AMPL, env)\n\nampl$eval(\"var x;\")\nampl$eval(\"maximize z: x;\")\nampl$eval(\"subject to c: x<=10;\")\n\nx <- ampl$getVariable(\"x\")\n\nampl$solve()\n\nMINOS 5.51: optimal solution found.\n1 iterations, objective 10\n\n#\n# # At this point x$value() evaluates to 10\nprint(x$value())  # prints 10\n\n[1] 10\n\nampl$close()"
+  },
+  {
+    "objectID": "rworld/DataScience/AMPL_R_API.html#assign-clients-to-commercials",
+    "href": "rworld/DataScience/AMPL_R_API.html#assign-clients-to-commercials",
+    "title": "AMPL R API",
+    "section": "Assign clients to commercials",
+    "text": "Assign clients to commercials\nIn a previous job, I worked as the responsible of commercials campaigns and one task was to assign the clients to the commercials having into account some constrains; such as:\n\nMonthly capacity by hierarchy\nOne client had to be attended by one salesperson\nOne commercial with XX knowledge could not attend one client that would requires attention on KK.\n\nThis task was done with excel creating pivot tables and crossing them and counting manually which client was assigned and tried to reach the capacity constrain. Nevertheless, this problem is a classic problem to be solved with operations research.\n\nParameters\n\nn_clients <- 84\nn_commercials <- 4\nn_campaigns <- 4\nn_rol <- 3\n\n\n\nData\nThe data used was generated using R and stored in dataframes. AMPL can read dataframes, so it is not need of having the data vectorized, as for example, in ompr package.\n\nCommercialClientsCampaignsJoined tables\n\n\nThis table has the list of workers in sales. For each person, contains the rol, the conversion_rate (average), and capacity in the month.\n\ncommercials <- data.frame(\n  \"seller_id\" = sample(1:n_commercials, replace = FALSE),\n  \"rol\" = 1:n_commercials %>% \n      purrr::map(function(x){\n        sample(LETTERS[1:n_rol],1,replace = TRUE)\n      }) %>% \n    unlist(),\n  \"convertion_rate\" = sample(20:100, n_commercials, replace = FALSE) / 100\n  ) %>% \n  left_join(\n    data.frame(\n      \"rol\" = LETTERS[1:n_rol],\n      \"capacity\" = 1:n_rol %>% \n          purrr::map(function(x){\n            sample(10:20,1,replace = FALSE)\n          }) %>% \n        unlist()\n    ),\n    by = \"rol\"\n    )\ncommercials %>% arrange(seller_id) %>% DT::datatable()\n\n\n\n\n\n\n\n\nThis table has the list of clients and campaigns to be offer.\n\nclients <- data.frame(\n  \"client_id\" = sample(1:n_clients,replace = FALSE),\n  \"campaign\" = 1 %>% purrr::map(function(x){\n    paste(\"campaign_\",sample(1:n_campaigns, n_clients, replace = TRUE),sep = \"\")\n  }) %>% unlist()\n) %>% \n  left_join(\n    data.frame(\n      \"campaign\" = paste0(\"campaign_\", sample(1:n_campaigns, n_campaigns, replace = FALSE)),\n      \"benefit\" = 1:n_campaigns %>% \n          purrr::map(function(x){\n            sample(100:1000, 1, replace = FALSE)\n          }) %>% \n        unlist()\n    ),\n    by = \"campaign\"\n  )\nclients %>% arrange(client_id) %>% DT::datatable()\n\n\n\n\n\n\n\n\nThis table has which role can attend each campaign.\n\ncampaigns <- data.frame(\n  \"campaign\" = paste(\"campaign_\",1:n_campaigns,sep = \"\"),\n  \"rol\" = 1:(n_campaigns) %>% purrr::map(function(x){\n    sample(LETTERS[1:n_rol],1,replace = TRUE)\n  }) %>% unlist()\n) %>% distinct()\n\ncampaigns %>% arrange(rol) %>% DT::datatable()\n\n\n\n\n\n\n\n\nFinally, the previous tables are joined to check data before start modelling.\n\nfinnal <- clients %>% \n  left_join(campaigns, by = \"campaign\") %>% \n  left_join(commercials, by = \"rol\") %>% \n  mutate(benefit = benefit * convertion_rate)\n\nfinnal %>% DT::datatable(filter = 'top')\n\n\n\n\n\n\n\n\n\n\n\nModel\nNow it is time to model, it is a good practice (even in AMPL) to have the .model, .data and .run files separated in one folder. As I build here the data, I just create the data as vectors for sets or scalar parameters or dataframes for tables\n\nModel run in RAMPL .mod\n\n\n\n## Build data to pass AMPL Model\n\n### sets\nClients <- distinct(finnal, client_id)[,1]\nCommercials <- distinct(finnal, seller_id)[,1]\n### paramets associated to commercial\ncapacities <- distinct(finnal, seller_id, capacity)[,2]\n### parameter associated to client and commercial\nbenefit <- select(finnal, client_id, seller_id, benefit) %>% \n  tidyr::pivot_wider(names_from = seller_id, values_from = benefit) %>% \n  mutate(across(where(is.numeric), ~tidyr::replace_na(.x, 1))) %>% \n  tidyr::pivot_longer(!client_id, names_to = \"seller_id\", values_to = \"benefit\") %>% \n  mutate(seller_id = as.numeric(seller_id))\n\n## .run \nampl <- new(AMPL, env) # Create class ampl\n\n# Setting solver to be used. Due to limit license (max 300 vars or contrains), \n# I change to HiGHS solver, allowed with AMPL CE..\n# an open source solver.\nampl$setOption(\"solver\",\"HiGHS\") \n\n#reading model written in .mod file (AMPL)\nampl$read(\"models/assign.mod\") # Read model located in folder models\n\n# Defines sets data and parameters.\n\nampl$setData(data.frame(Clients = Clients), 1, \"Clients\") \nampl$setData(\n  data.frame(Commercials = Commercials, capacity = capacities), \n  1, \n  \"Commercials\"\n)\nampl$setData(benefit, 2, \"\")\n\nampl$solve()\n\nHiGHS 1.2.2: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.2.2: optimal solution; objective 10436.19\n1 branching nodes\n\n## Get objective solution\ncat(sprintf(\"Objective: %f\\n\", ampl$getObjective(\"Profit\")$value()))\n\nObjective: 10436.190000\n\n# Get the values of the variable assign in a data.frame\ndf <- ampl$getVariable(\"assign\")$getValues()\n\ndf <- df %>% \n  rename(\n    seller_id = index1,\n    client_id = index0,\n    solution = assign.val\n  ) %>% \n  mutate(solution = round(solution))\n\nampl$close()\n\n\n\nContains the formulation of the problem written in AMPL language.\n```{ampl}\n\nset Clients;\nset Commercials;\n\nparam capacity {Commercials} > 0;\nparam benefit {Clients, Commercials} >= 0;\n\nvar assign {Clients, Commercials} binary;\n\nmaximize Profit:\n  sum {i in Clients, j in Commercials} benefit[i,j] * assign[i,j];\n  \nsubject to Supply {i in Clients}:\n  sum {j in Commercials} assign[i,j] <= 1;\nsubject to capacity_constrain {j in Commercials}:\n  sum {i in Clients} assign[i,j] <= capacity[j];\n```\n\n\n\n\nSolutionConstrain capacityConstrain assign\n\n\n\n\n\n\n\n\nNote\n\n\n\nSome clients were not assigned due to capacity of the sales force.\n\n\n\ndf %>% \n  DT::datatable(filter = 'top')\n\n\n\n\n\n\n\n\n\ndf %>% \n  group_by(seller_id) %>% \n  summarise(num_clients = sum(solution)) %>% \n  DT::datatable(filter = 'top')\n\n\n\n\n\n\n\n\n\ndf %>% \n  group_by(client_id) %>% \n  summarise(num_commercials = sum(solution)) %>% \n  DT::datatable(filter = 'top')\n\n\n\n\n\n\n\n\n\nThanks for reading, Hope this would be helpfull for you or your organization."
+  },
+  {
     "objectID": "rworld/DataScience/HOML_tidymodels.html",
     "href": "rworld/DataScience/HOML_tidymodels.html",
     "title": "Hands On Machine Learning with R",
@@ -19,55 +194,6 @@
     "title": "Hands On Machine Learning with R",
     "section": "2. Modelling in R",
     "text": "2. Modelling in R\nThere are different ways to create a formulas depending on the engine used. In order to test the model, we should not use the test data, instead, training data should be splitied using resampling methods,"
-  },
-  {
-    "objectID": "rworld/DataScience.html",
-    "href": "rworld/DataScience.html",
-    "title": "Data Science",
-    "section": "",
-    "text": "AMPL R API\n\n\n\nPrescriptive Analytics\n\n\nAMPL\n\n\nMIP\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands On Machine Learning with R\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "rworld/Shiny/data_structures.html",
-    "href": "rworld/Shiny/data_structures.html",
-    "title": "Data Structures",
-    "section": "",
-    "text": "Go to App\nCheck code here\n\nThe idea behind this application is to learn and create apps from data structures field.\nDouble linked list representation with random words. The user should guess the word from the wordcloud, the letters introduced are compared to a linkedlist saved in a R6Class."
-  },
-  {
-    "objectID": "rworld/Shiny/learning_polish.html",
-    "href": "rworld/Shiny/learning_polish.html",
-    "title": "Learning Polish",
-    "section": "",
-    "text": "Go to App\nCheck code here\n\nThis application contains different modules:\n\nVocabulary: Connects with google firebase where data for this app is stored. In that way, words can be added, deleted or modified in real time using R functions\nGames: Contains two games\n\nBucket list: Drag and drop words into categories\nGuess word: Guess word in the correct order"
-  },
-  {
-    "objectID": "rworld/Shiny/mastering_shiny.html",
-    "href": "rworld/Shiny/mastering_shiny.html",
-    "title": "Mastering Shiny",
-    "section": "",
-    "text": "This application solves exercises proposed on each chapter of the book.\n\nGo to App\nCheck code here"
-  },
-  {
-    "objectID": "rworld/Shiny.html",
-    "href": "rworld/Shiny.html",
-    "title": "Shiny",
-    "section": "",
-    "text": "Data Structures\n\n\nApp with application of Data Structures\n\n\n\nR6Class\n\n\nData Structures\n\n\n\nApp to develop data structure applications\n\n\n\n\n\n\n\n\n\n\n\n\n\nLearning Polish\n\n\nApp with interactive games.\n\n\n\nfirebase\n\n\nAPI\n\n\n\nApp created to learn polish in an interactive way with games developed\n\n\n\n\n\n\n\n\n\n\n\n\n\nMastering Shiny\n\n\nBy Hadley Wickham\n\n\n\nmodules\n\n\n\nSolution to exercices mastering Shiny’s book.\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "rworld.html",
-    "href": "rworld.html",
-    "title": "RWorld",
-    "section": "",
-    "text": "Blog\n\n\nR, Python, SQL, Spark, among others\n\n\nGeneral tips for R, Git, SQL or python.\n\n\n\n\n\n\n\n\n\n\n\n\n\nData Science\n\n\nWith tidymodels\n\n\nMachine learning models developed with tidymodels\n\n\n\n\n\n\n\n\n\n\n\n\n\nShiny\n\n\nApps\n\n\nDashboards created with Shiny library for R\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Andrés Felipe Insuasty Ch.",
-    "section": "",
-    "text": "Hola | Hi | Cześć\nI love learn and share what I have learned, for that reason, I share with you personal experiences and profesional projects developing Data Science."
   },
   {
     "objectID": "rworld/DataScience/HOML_tidymodels.html#resampling-methods",
@@ -112,80 +238,136 @@
     "text": "3. Feature filtering\n\n\n\n\n\n\nImportant\n\n\n\nFor some models, increasing features not always make the output better, instead, it can affect the processing time and cost of computation.\n\n\nThe following images are taken from the book referenced at the beginning of the blog. On the left, it shows the performance metric vs # features and on the right, it shows the processing time taken to train a model.\n\nPerformance vs FeaturesProcessing Time vs Features\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nZero and near-zero variance variables are target to eliminate as features! Meaning the feature only has a single value or not useful information to the model\n\n\nIn order to remove zero or near-zero variables, use the following functions from recipes packages:\n\names_recipe %>% \n  recipes::step_nzv() %>% # near zero variance elimiate\n  recipes::step_zv() # zero variance eliminate\n\n\nNumeric feature engineering\n\nSkewnessStandarization\n\n\nIn order to correct Skewness, normalize. Use BoxCox for positive features, in case of negative features use YeoJohnson.\n\names_recipe %>% \n  recipes::step_BoxCox() #positive features\n  # recipes::step_YeoJohnson() #include negative features\n\n\n\n“Standarization includes centering and scaling so that numeric variables have zero mean and unit variance, which provides a common comparable unit of measure across all the variables”\n“Models that incorporate smooth functions of input features are sensitive to the scale of the inputs. Many algorithms use linear functions within their algorithms, some more obvious (e.g., GLMs and regularized regression) than others (e.g., neural networks, support vector machines, and principal components analysis). Other examples include algorithms that use distance measures such as the Euclidean distance (e.g., k nearest neighbor, k-means clustering, and hierarchical clustering).”\n\n\n\n\n\n\nImportant\n\n\n\nHowever, you should standardize your variables within the recipe blueprint so that both training and test data standardization are based on the same mean and variance. This helps to minimize data leakage\n\n\n\names_recipe %>%\n  step_center(all_numeric(), -all_outcomes()) %>%\n  step_scale(all_numeric(), -all_outcomes())\n\n\n\n\n\n\nCategorical feature engineering\nSome models requires all features to be numerical.\n\nLumping\nIn some cases, there are some levels of a categorical variable that have few observations, therefore, we can agrupated them in one level with step_other. However, lumping should be used sparingly as there is often a loss in model performance (Kuhn, Max, and Kjell Johnson. 2013. Applied Predictive Modeling. Vol. 26. Springer.).\n\n\nOne-hot & dummy encoding\nA categorical column could be converted to a set of binaries variables. However, some models, such as, ordinary linear regression and neural networks, might have problems with collinearity (collinearity, in statistics, correlation between predictor variables (or independent variables), such that they express a linear relationship in a regression model. When predictor variables in the same regression model are correlated, they cannot independently predict the value of the dependent variable). Therefore, dummy step would remove one binary variable to not create a collinearity.\n\nrecipe(Sale_Price ~ ., data = ames_train) %>%\n  step_dummy(all_nominal(), one_hot = TRUE) # One-hot encoding\n  # step_dummy(all_nominal()) # dummy encoding\n\n\n\n\nLabel encoding\nIt generates the number order of the levels and it is done with step_integer()\n\n\n\n\n\n\nImportant\n\n\n\nFor ordered factors you could also use step_ordinalscore().\n\n\n\n\nPutting the process together\nProcess together Fundamentals"
   },
   {
-    "objectID": "more.html",
-    "href": "more.html",
-    "title": "And more",
+    "objectID": "rworld/DataScience.html",
+    "href": "rworld/DataScience.html",
+    "title": "Data Science",
     "section": "",
-    "text": "About me\n\n\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "AMPL R API\n\n\n\nPrescriptive Analytics\n\n\nAMPL\n\n\nMIP\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHands On Machine Learning with R\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "more/about_me.html",
-    "href": "more/about_me.html",
-    "title": "About me",
+    "objectID": "rworld/Shiny/data_structures.html",
+    "href": "rworld/Shiny/data_structures.html",
+    "title": "Data Structures",
     "section": "",
-    "text": "(a) MSc in Statistics and Operation Research\n\n\n\n\n\n\n\n(b) Travelling\n\n\n\n\nFigure 1: Happy moments\nMy name is Andrés Felipe Insuasty Ch. (Please call me: Insu),\nI am from Cali, Colombia. Capital of salsa dancing 💃, full of tastes in its food, beauty of the people and great parties or festivals .\nOn 2022 I got married  in Pasto, Colombia with Klaudia from Poland, On 23rd of September 2022, I turned 32 years in Bogotá. Same year, on November 21st, I became a happy full time dad  of Oliver.\nCheck my resume for professional information"
+    "text": "Go to App\nCheck code here\n\nThe idea behind this application is to learn and create apps from data structures field.\nDouble linked list representation with random words. The user should guess the word from the wordcloud, the letters introduced are compared to a linkedlist saved in a R6Class."
   },
   {
-    "objectID": "more/about_me.html#projects",
-    "href": "more/about_me.html#projects",
-    "title": "About me",
-    "section": "PROJECTS 📖",
-    "text": "PROJECTS 📖\nAll would be uploaded to my GitHub\n\nHOBBIES 😎\nSome fun facts about me:\n\nI used to practice Karate , Soccer .\nI love biking and jogging.\nLove dancing Salsa\nLearning to take pictures Check my Instagram 📷\nSome cooking recipies explained by me:\n\n\nRacuchy de Manzana, Polish recipy 🍎😋\n\n\nTravelling a lot around the world✈️🚄\n\nThanks for reading!"
-  },
-  {
-    "objectID": "rworld/DataScience/AMPL_R_API.html",
-    "href": "rworld/DataScience/AMPL_R_API.html",
-    "title": "AMPL R API",
+    "objectID": "rworld/Shiny/learning_polish.html",
+    "href": "rworld/Shiny/learning_polish.html",
+    "title": "Learning Polish",
     "section": "",
-    "text": "Have you ever asked, How to optimize your commercial process with Mathematical Optimization (field: Operations Research)?\nOperations Research is an old field that have had improved many industries around the world with the use of mathematics, it helps to model a real problem with an objective function and constrains associated to it.\nIn this post, I would show how you can run an optimization problem from R using the integration with AMPL (Optimization software). To get more details about this integration, please follow this link"
+    "text": "Go to App\nCheck code here\n\nThis application contains different modules:\n\nVocabulary: Connects with google firebase where data for this app is stored. In that way, words can be added, deleted or modified in real time using R functions\nGames: Contains two games\n\nBucket list: Drag and drop words into categories\nGuess word: Guess word in the correct order"
   },
   {
-    "objectID": "rworld/DataScience/AMPL_R_API.html#easy-example",
-    "href": "rworld/DataScience/AMPL_R_API.html#easy-example",
-    "title": "AMPL R API",
-    "section": "Easy example",
-    "text": "Easy example\n\n# env <- new(Environment, \"full path to the AMPL installation directory\")\nampl <- new(AMPL, env)\n\nampl$eval(\"var x;\")\nampl$eval(\"maximize z: x;\")\nampl$eval(\"subject to c: x<=10;\")\n\nx <- ampl$getVariable(\"x\")\n\nampl$solve()\n\nMINOS 5.51: optimal solution found.\n1 iterations, objective 10\n\n#\n# # At this point x$value() evaluates to 10\nprint(x$value())  # prints 10\n\n[1] 10\n\nampl$close()"
-  },
-  {
-    "objectID": "rworld/DataScience/AMPL_R_API.html#class-structure",
-    "href": "rworld/DataScience/AMPL_R_API.html#class-structure",
-    "title": "AMPL R API",
-    "section": "Class structure",
-    "text": "Class structure\nThe idea behind this package is to manage the optimization problem as an instance of a class.\nThat means a variable with the content of the class needs to be created. this object will contains the structure of the problem, each time the user introduces new information. The optimization formulation is build in the eval method.\nIn case you struggle with this concept of classes, you can check the post Data Structures with R6Class\n\n# env <- new(Environment, \"full path to the AMPL installation directory\")\nampl <- new(AMPL, env)\n\nampl$eval(\"var x;\")\nampl$eval(\"maximize z: x;\")\nampl$eval(\"subject to c: x<=10;\")\n\nx <- ampl$getVariable(\"x\")\n\nampl$solve()\n\nMINOS 5.51: optimal solution found.\n1 iterations, objective 10\n\n#\n# # At this point x$value() evaluates to 10\nprint(x$value())  # prints 10\n\n[1] 10\n\nampl$close()"
-  },
-  {
-    "objectID": "rworld/Blog.html",
-    "href": "rworld/Blog.html",
-    "title": "Blog",
+    "objectID": "rworld/Shiny/mastering_shiny.html",
+    "href": "rworld/Shiny/mastering_shiny.html",
+    "title": "Mastering Shiny",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\nCategories\n\n\nReading Time\n\n\n\n\n\n\nData Structures with R6Class\n\n\nImplement data structures with R6Class\n\n\nR6Class,Data Structures\n\n\n3 min\n\n\n\n\nHow to interact with firebase from a shinyapp\n\n\nFind how to use httr to access or modify stored data in firebase.\n\n\nFirebase\n\n\n4 min\n\n\n\n\nPowerBI Leverage with R\n\n\nLeverage PowerBI apps with R\n\n\nPowerBI,R,functions\n\n\n2 min\n\n\n\n\nUso de Spark desde R\n\n\nBig data con Spark y R\n\n\nSpark,R6Class,Text mining\n\n\n3 min\n\n\n\n\n\n\nNo matching items"
+    "text": "This application solves exercises proposed on each chapter of the book.\n\nGo to App\nCheck code here"
   },
   {
-    "objectID": "rworld/Blog/data_structures.html",
-    "href": "rworld/Blog/data_structures.html",
-    "title": "Data Structures with R6Class",
+    "objectID": "rworld/Shiny.html",
+    "href": "rworld/Shiny.html",
+    "title": "Shiny",
     "section": "",
-    "text": "Data Structures\nThis post is oriented to create classes that recreates data structures and explanaition for each. Knowing this may help you improve as a programmer because is the basic of each language you would work R, python, c, javascript, others..\nData structures to work with:\n\nArrays\nLinkedLists\nHashtable\nStacks\nQueues\nTrees\nGraphs\n\n\nArraysLinkedLists\n\n\nR manages dinamics vectors, this means that one index can be added to an existed vector. For the purpose of this blog I would create a class R6Class to simmulate an Array. Within this array, you would be able to get an index, push a new item at the end, pop last item, delete an index.\n\nmyarray <- R6::R6Class(\n  classname = \"myarray\",\n  public = list(\n    initialize = function() {\n      self$array_length <- 0\n      self$array_data <- c()\n    },\n    array_length = NULL,\n    array_data = NULL,\n    get_value = function(index) {\n      return(self$array_data[index])\n    },\n    push = function(value) {\n      self$array_data[self$array_length + 1] = value\n      self$array_length <- length(self$array_data)\n    },\n    pop = function() {\n      lastItem <- self$array_data[self$array_length]\n      self$array_data <- self$array_data[-self$array_length]\n      self$array_length <- length(self$array_data)\n      return(lastItem)\n    },\n    delete = function(index) {\n      self$array_data <- self$array_data[-index]\n      self$array_length <- length(self$array_data)\n    }\n  )\n)\nmyarray = myarray$new()\nmyarray$push(2)\nmyarray$pop()\n\n\n\nLinkedLists are a set of nodes (that contains information related to where the data is stored in pc memory (pointers) and which node is next or previous). Until my understanding, R does not have linkedList in its implementation, list are manage as vectors or arrays. There exists 2 types or linked lists, one is single which it has just one direction and double which has two directions.\nNevertheless, let’s implement an double linkedList with R6Class:\n\nmy_Linked_List <- R6::R6Class(\n  classname = \"linkedList\",\n  public = list(\n    # Initialize with the first value of the linkedList, .next would be NULL\n    initialize = function(value) {\n      self$list_pointer <- list(new.env())\n      self$list_pointer[[1]]$value <- value\n      self$index_head <- 1\n      self$index_tail <- 1\n      self$list_pointer[[1]]$index_next <- NULL\n      self$list_pointer[[1]]$index_prev <- NULL\n    },\n    list_pointer = NULL,\n    index_head = NULL,\n    index_tail = NULL,\n    # next is an used variable from R.\n    get_index = function(index) {\n      if (self$index_tail < index) stop(\"index not created yet!\")\n      return(self$list_pointer[[index]]$value)\n    },\n    insert = function(value) {\n      self$list_pointer <- self$list_pointer %>%\n        append(new.env())\n      self$index_tail <- self$index_tail + 1\n      self$list_pointer[[self$index_tail]]$index_prev <-\n        self$list_pointer[[self$index_tail - 1]]\n      self$list_pointer[[self$index_tail - 1]]$index_next <-\n        self$list_pointer[[self$index_tail]]\n      self$list_pointer[[self$index_tail]]$value <- value\n      self$list_pointer[[self$index_tail]]$index_next <- NULL\n      return(self$list_pointer)\n    }\n  )\n)"
+    "text": "Data Structures\n\n\nApp with application of Data Structures\n\n\n\nR6Class\n\n\nData Structures\n\n\n\nApp to develop data structure applications\n\n\n\n\n\n\n\n\n\n\n\n\n\nLearning Polish\n\n\nApp with interactive games.\n\n\n\nfirebase\n\n\nAPI\n\n\n\nApp created to learn polish in an interactive way with games developed\n\n\n\n\n\n\n\n\n\n\n\n\n\nMastering Shiny\n\n\nBy Hadley Wickham\n\n\n\nmodules\n\n\n\nSolution to exercices mastering Shiny’s book.\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "rworld/DataScience/AMPL_R_API.html#rampl-manage-class-structure",
-    "href": "rworld/DataScience/AMPL_R_API.html#rampl-manage-class-structure",
-    "title": "AMPL R API",
-    "section": "rAMPL manage Class structure",
-    "text": "rAMPL manage Class structure\nThe idea behind this package is to manage the optimization problem as an instance of a class.\nThat means a variable with the content of the class needs to be created. This object will contains the structure of the problem, each time the user need to introduces\ninformation. For example: the optimization formulation is build in the eval method or loaded from a .mod file.\nIn case you struggle with this concept of classes, you can check the post Data Structures with R6Class\n\n# env <- new(Environment, \"full path to the AMPL installation directory\")\nampl <- new(AMPL, env)\n\nampl$eval(\"var x;\")\nampl$eval(\"maximize z: x;\")\nampl$eval(\"subject to c: x<=10;\")\n\nx <- ampl$getVariable(\"x\")\n\nampl$solve()\n\nMINOS 5.51: optimal solution found.\n1 iterations, objective 10\n\n#\n# # At this point x$value() evaluates to 10\nprint(x$value())  # prints 10\n\n[1] 10\n\nampl$close()"
+    "objectID": "rworld.html",
+    "href": "rworld.html",
+    "title": "RWorld",
+    "section": "",
+    "text": "Blog\n\n\nR, Python, SQL, Spark, among others\n\n\nGeneral tips for R, Git, SQL or python.\n\n\n\n\n\n\n\n\n\n\n\n\n\nData Science\n\n\nWith tidymodels\n\n\nMachine learning models developed with tidymodels\n\n\n\n\n\n\n\n\n\n\n\n\n\nShiny\n\n\nApps\n\n\nDashboards created with Shiny library for R\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "rworld/DataScience/AMPL_R_API.html#assign-clients-to-commercials",
-    "href": "rworld/DataScience/AMPL_R_API.html#assign-clients-to-commercials",
-    "title": "AMPL R API",
-    "section": "Assign clients to commercials",
-    "text": "Assign clients to commercials\nIn a previous job, I worked as the responsible of commercials campaigns and one task was to assign the clients to the commercials having into account some constrains; such as:\n\nMonthly capacity by hierarchy\nOne client had to be attended by one salesperson\nOne commercial with XX knowledge could not attend one client that would requires attention on KK.\n\nThis task was done with excel creating pivot tables and crossing them and counting manually which client was assigned and tried to reach the capacity constrain. Nevertheless, this problem is a classic problem to be solved with operations research.\n\nParameters\n\nn_clients <- 84\nn_commercials <- 4\nn_campaigns <- 4\nn_rol <- 3\n\n\n\nData\nThe data used was generated using R and stored in dataframes. AMPL can read dataframes, so it is not need of having the data vectorized, as for example, in ompr package.\n\nCommercialClientsCampaignsJoined tables\n\n\nThis table has the list of workers in sales. For each person, contains the rol, the conversion_rate (average), and capacity in the month.\n\ncommercials <- data.frame(\n  \"seller_id\" = sample(1:n_commercials, replace = FALSE),\n  \"rol\" = 1:n_commercials %>% \n      purrr::map(function(x){\n        sample(LETTERS[1:n_rol],1,replace = TRUE)\n      }) %>% \n    unlist(),\n  \"convertion_rate\" = sample(20:100, n_commercials, replace = FALSE) / 100\n  ) %>% \n  left_join(\n    data.frame(\n      \"rol\" = LETTERS[1:n_rol],\n      \"capacity\" = 1:n_rol %>% \n          purrr::map(function(x){\n            sample(10:20,1,replace = FALSE)\n          }) %>% \n        unlist()\n    ),\n    by = \"rol\"\n    )\ncommercials %>% arrange(seller_id) %>% DT::datatable()\n\n\n\n\n\n\n\n\nThis table has the list of clients and campaigns to be offer.\n\nclients <- data.frame(\n  \"client_id\" = sample(1:n_clients,replace = FALSE),\n  \"campaign\" = 1 %>% purrr::map(function(x){\n    paste(\"campaign_\",sample(1:n_campaigns, n_clients, replace = TRUE),sep = \"\")\n  }) %>% unlist()\n) %>% \n  left_join(\n    data.frame(\n      \"campaign\" = paste0(\"campaign_\", sample(1:n_campaigns, n_campaigns, replace = FALSE)),\n      \"benefit\" = 1:n_campaigns %>% \n          purrr::map(function(x){\n            sample(100:1000, 1, replace = FALSE)\n          }) %>% \n        unlist()\n    ),\n    by = \"campaign\"\n  )\nclients %>% arrange(client_id) %>% DT::datatable()\n\n\n\n\n\n\n\n\nThis table has which role can attend each campaign.\n\ncampaigns <- data.frame(\n  \"campaign\" = paste(\"campaign_\",1:n_campaigns,sep = \"\"),\n  \"rol\" = 1:(n_campaigns) %>% purrr::map(function(x){\n    sample(LETTERS[1:n_rol],1,replace = TRUE)\n  }) %>% unlist()\n) %>% distinct()\n\ncampaigns %>% arrange(rol) %>% DT::datatable()\n\n\n\n\n\n\n\n\nFinally, the previous tables are joined to check data before start modelling.\n\nfinnal <- clients %>% \n  left_join(campaigns, by = \"campaign\") %>% \n  left_join(commercials, by = \"rol\") %>% \n  mutate(benefit = benefit * convertion_rate)\n\nfinnal %>% DT::datatable(filter = 'top')\n\n\n\n\n\n\n\n\n\n\n\nModel\nNow it is time to model, it is a good practice (even in AMPL) to have the .model, .data and .run files separated in one folder. As I build here the data, I just create the data as vectors for sets or scalar parameters or dataframes for tables\n\nModel run in RAMPL .mod\n\n\n\n## Build data to pass AMPL Model\n\n### sets\nClients <- distinct(finnal, client_id)[,1]\nCommercials <- distinct(finnal, seller_id)[,1]\n### paramets associated to commercial\ncapacities <- distinct(finnal, seller_id, capacity)[,2]\n### parameter associated to client and commercial\nbenefit <- select(finnal, client_id, seller_id, benefit) %>% \n  tidyr::pivot_wider(names_from = seller_id, values_from = benefit) %>% \n  mutate(across(where(is.numeric), ~tidyr::replace_na(.x, 1))) %>% \n  tidyr::pivot_longer(!client_id, names_to = \"seller_id\", values_to = \"benefit\") %>% \n  mutate(seller_id = as.numeric(seller_id))\n\n## .run \nampl <- new(AMPL, env) # Create class ampl\n\n# Setting solver to be used. Due to limit license (max 300 vars or contrains), \n# I change to HiGHS solver, allowed with AMPL CE..\n# an open source solver.\nampl$setOption(\"solver\",\"HiGHS\") \n\n#reading model written in .mod file (AMPL)\nampl$read(\"models/assign.mod\") # Read model located in folder models\n\n# Defines sets data and parameters.\n\nampl$setData(data.frame(Clients = Clients), 1, \"Clients\") \nampl$setData(\n  data.frame(Commercials = Commercials, capacity = capacities), \n  1, \n  \"Commercials\"\n)\nampl$setData(benefit, 2, \"\")\n\nampl$solve()\n\nHiGHS 1.2.2: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.2.2: optimal solution; objective 16041.8\n1 branching nodes\n\n## Get objective solution\ncat(sprintf(\"Objective: %f\\n\", ampl$getObjective(\"Profit\")$value()))\n\nObjective: 16041.800000\n\n# Get the values of the variable assign in a data.frame\ndf <- ampl$getVariable(\"assign\")$getValues()\n\ndf <- df %>% \n  rename(\n    seller_id = index1,\n    client_id = index0,\n    solution = assign.val\n  ) %>% \n  mutate(solution = round(solution))\n\nampl$close()\n\n\n\nContains the formulation of the problem written in AMPL language.\n```{ampl}\n\nset Clients;\nset Commercials;\n\nparam capacity {Commercials} > 0;\nparam benefit {Clients, Commercials} >= 0;\n\nvar assign {Clients, Commercials} binary;\n\nmaximize Profit:\n  sum {i in Clients, j in Commercials} benefit[i,j] * assign[i,j];\n  \nsubject to Supply {i in Clients}:\n  sum {j in Commercials} assign[i,j] <= 1;\nsubject to capacity_constrain {j in Commercials}:\n  sum {i in Clients} assign[i,j] <= capacity[j];\n```\n\n\n\n\nSolutionConstrain capacityConstrain assign\n\n\n\n\n\n\n\n\nNote\n\n\n\nSome clients were not assigned due to capacity of the sales force.\n\n\n\ndf %>% \n  DT::datatable(filter = 'top')\n\n\n\n\n\n\n\n\n\ndf %>% \n  group_by(seller_id) %>% \n  summarise(num_clients = sum(solution)) %>% \n  DT::datatable(filter = 'top')\n\n\n\n\n\n\n\n\n\ndf %>% \n  group_by(client_id) %>% \n  summarise(num_commercials = sum(solution)) %>% \n  DT::datatable(filter = 'top')\n\n\n\n\n\n\n\n\n\nThanks for reading, Hope this would be helpfull for you or your organization."
+    "objectID": "Books/AMPL/chapter_1.html#a.-change-constrain-to-equal",
+    "href": "Books/AMPL/chapter_1.html#a.-change-constrain-to-equal",
+    "title": "Chapter 1",
+    "section": "a. Change constrain to equal",
+    "text": "a. Change constrain to equal\nAs the objective functions is a maximization, the problem would try to achive the equality as their is not another constraint. Therefore, changing the equality from <= to = does not change the result.\n```{ampl}\nsubject to Time {s in STAGE}:\nsum {p in PROD} (1/rate[p,s]) * Make[p] = avail[s];\n```"
   },
   {
-    "objectID": "rworld/DataScience/AMPL_R_API.html#libraries",
-    "href": "rworld/DataScience/AMPL_R_API.html#libraries",
-    "title": "AMPL R API",
-    "section": "Libraries",
-    "text": "Libraries\nIn order to install rAMPL it is important to have the lastest version of RTools installed. Getting started session from AMPL webiste.\nAs long as I, used renv for building my blog I use the following code:\n\nrenv::install(\"https://ampl.com/dl/API/rAMPL.tar.gz\", repos=NULL, INSTALL_opts=c(\"--no-multiarch\", \"--no-staged-install\"))\n\n\nlibrary(rAMPL)\nlibrary(dplyr)\nlibrary(DT)"
+    "objectID": "Books/AMPL/chapter_1.html#b.-max-total-weigth-contraint",
+    "href": "Books/AMPL/chapter_1.html#b.-max-total-weigth-contraint",
+    "title": "Chapter 1",
+    "section": "b. Max total weigth contraint",
+    "text": "b. Max total weigth contraint\nAdding a new constraint to put a upper bound to the variable Make.\n\n\n# Loading class and setting solver\nampl = AMPL() # instantiate AMPL object\nampl.option[\"solver\"] = \"highs\"\n\n# Load model and data\nampl.read(\"models/steel_original.mod\") # read model located in folder models\nampl.read_data(\"data/steel_original.dat\") # read dat located in folder models\n\n## Adding new constraint to limit tons manufactured.\nampl.eval(\"param max_weight := 6500;\")\nampl.eval(\"subject to MaxWeight: sum {p in PROD} Make[p] <= max_weight;\")\n\n# Solving problem\nampl.solve()\n\nHiGHS 1.5.1: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.5.1: optimal solution; objective 183791.6667\n3 simplex iterations\n0 barrier iterations\n\ndf = ampl.getVariable(\"Make\").getValues()\nprint(df)\n\n   index0    |   Make.val  \n  'bands'    | 1541.666666666667\n  'coils'    | 1458.333333333333\n  'plate'    |     3500    \n\nampl.close()"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#c.-produce-as-many-tons-as-possible",
+    "href": "Books/AMPL/chapter_1.html#c.-produce-as-many-tons-as-possible",
+    "title": "Chapter 1",
+    "section": "c. Produce as many tons as possible",
+    "text": "c. Produce as many tons as possible\nThe idea behind increase number of tons is to keep the objective functions, nevertheless, without the params profit.\n```{ampl}\n\nmaximize tons: sum {p in PROD} Make[p];\n# Objective: total profits from all products\n\n```"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#d.",
+    "href": "Books/AMPL/chapter_1.html#d.",
+    "title": "Chapter 1",
+    "section": "d. ",
+    "text": "d. \nIn this exercise we are asked to change the minimum of the tons make for each product, therefore, we required to redeclare the var to delete the lower bound.\n\n\n# import  libraries\nimport pandas as pd\n\n# Loading class and setting solver\nampl = AMPL() # instantiate AMPL object\nampl.option[\"solver\"] = \"highs\"\n\n# Load model and data\nampl.read(\"models/steel_original.mod\") # read model located in folder models\nampl.read_data(\"data/steel_original.dat\") # read dat located in folder models\n\n## Changing in formulation\nampl.eval(\"param shares {PROD};\")\n\n# Creation of a list to input ampl\nshares_list = {\"bands\": 0.4, \"coils\": 0.1, \"plate\": 0.4}\n\n# Inputing the list into the param shares created\nampl.param[\"shares\"] = {PROD: shares for PROD, (shares) in shares_list.items()}\n\n# Redeclare var Make to delete lower bound\nampl.eval(\"redeclare var Make {p in PROD} <= market[p];\")\n\n# Create a new constraint with the lower bound by product\nampl.eval(\"subject to min_shares {j in PROD}: Make[j] >= shares[j] * sum {k in PROD} Make[k];\")\n\n# Solving problem\nampl.solve()\n\nHiGHS 1.5.1: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.5.1: optimal solution; objective 189700\n5 simplex iterations\n0 barrier iterations\n\ndf = ampl.getVariable(\"Make\").getValues()\nprint(df)\n\n   index0    |   Make.val  \n  'bands'    |     3500    \n  'coils'    |     700     \n  'plate'    |     2800    \n\nampl.close()"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#installing-rampl-and-amplpy",
+    "href": "Books/AMPL/chapter_1.html#installing-rampl-and-amplpy",
+    "title": "Chapter 1",
+    "section": "0. Installing rAMPL and amplpy",
+    "text": "0. Installing rAMPL and amplpy\n\nrAMPL\n\nrenv::install(\"https://ampl.com/dl/API/rAMPL.tar.gz\", repos=NULL, INSTALL_opts=c(\"--no-multiarch\", \"--no-staged-install\"))\n\n\n\namplpy\nIn order to use the free license of ampl community, it is required to input the license number after –uuid.\n```{sh}\npython -m pip install jupyter\npython -m pip install amplpy --upgrade\npython -m amplpy.modules install highs gurobi\npython -m amplpy.modules run amplkey activate --uuid\npython -m amplpy.modules run ampl -vvq\npython -m pip install amplpy\npython -m pip install pandas \n```"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#a.-subjetct-to-budget",
+    "href": "Books/AMPL/chapter_1.html#a.-subjetct-to-budget",
+    "title": "Chapter 1",
+    "section": "a. Subjetct to budget",
+    "text": "a. Subjetct to budget\n\n# creating vectors with information\nunits <- c(\"tv_mins\", \"magazine_pages\")\ncost <- c(20000, 10000)\nreach <- c(1.8, 1)\nmin_units <- c(10, 1)\n\n# Loading class and setting solver\nampl <- new(AMPL, env)\nampl$setOption(\"solver\",\"HiGHS\") \n\nampl$eval(\"param p_budget := 1000000;\")\n# Loading model\nampl$read(\"models/1.1 Advertising_campaigns.mod\")\n\n# Setting Data\nampl$setData(\n  data.frame(\n    units = units, \n    cost = cost, \n    reach = reach, \n    min_units = min_units\n  ), 1, \"units\"\n) \n# Formulation\nampl$eval(\"var buy{u in units} >= min_units[u];\")\nampl$eval(\"maximize Audience: sum {u in units} buy[u] * reach[u];\")\nampl$eval(\"subject to budget: sum {u in units} buy[u] * cost[u] <= p_budget;\")\n\nampl$solve()\n\nHiGHS 1.2.2: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.2.2: optimal solution; objective 98\n0 simplex iterations\n0 barrier iterations\nabsmipgap=98, relmipgap=inf\n\nprint(ampl$getVariable(\"buy\")$getValues())\n\n          index0 buy.val\n1 magazine_pages      80\n2        tv_mins      10\n\nampl$close()"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#b.-adding-constraint-time-needed-to-build-campaign",
+    "href": "Books/AMPL/chapter_1.html#b.-adding-constraint-time-needed-to-build-campaign",
+    "title": "Chapter 1",
+    "section": "b. Adding constraint time needed to build campaign",
+    "text": "b. Adding constraint time needed to build campaign\n\nunits <- c(\"tv_mins\", \"magazine_pages\")\ncost <- c(20000, 10000)\nreach <- c(1.8, 1)\nmin_units <- c(10, 1)\nperson_weeks <- c(1, 3)\n\n# loading class and setting solver\nampl <- new(AMPL, env)\nampl$setOption(\"solver\",\"highs\") \n\n# Adding parameters\nampl$eval(\"param p_budget := 1000000;\")\nampl$eval(\"param max_person_weeks := 100;\")\n# loading model\nampl$read(\"models/1.1 advertising_campaigns.mod\") # read model located in folder models\n\n# setting data\nampl$setData(\n  data.frame(\n    units = units, \n    cost = cost, \n    reach = reach, \n    min_units = min_units,\n    person_weeks = person_weeks\n  ), 1, \"units\"\n) \n# formulation\nampl$eval(\"var buy{u in units} >= min_units[u];\")\nampl$eval(\"maximize audience: sum {u in units} buy[u] * reach[u];\")\nampl$eval(\"subject to budget: sum {u in units} buy[u] * cost[u] <= p_budget;\")\nampl$eval(\"subject to capacity: sum {u in units} buy[u] * person_weeks[u] <= max_person_weeks;\")\n\nampl$solve()\n\nHiGHS 1.2.2: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.2.2: optimal solution; objective 92\n2 simplex iterations\n0 barrier iterations\nabsmipgap=92, relmipgap=inf\n\nampl$getVariable(\"buy\")$getValues()\n\n          index0 buy.val\n1 magazine_pages      20\n2        tv_mins      40\n\nampl$close()"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#c.-adding-channel-radio",
+    "href": "Books/AMPL/chapter_1.html#c.-adding-channel-radio",
+    "title": "Chapter 1",
+    "section": "c. Adding channel radio",
+    "text": "c. Adding channel radio\nModel keeps the same as previous, but data changes.\n\n# Adding channel to data\nunits <- c(\"tv_mins\", \"magazine_pages\", \"radio_min\")\ncost <- c(20000, 10000, 2000)\nreach <- c(1.8, 1, 0.25)\nmin_units <- c(10, 1, 1)\nperson_weeks <- c(1, 3, 1/7)\n\n# loading class and setting solver\nampl <- new(AMPL, env)\nampl$setOption(\"solver\",\"HiGHS\") \n\nampl$eval(\"param p_budget := 1000000;\")\nampl$eval(\"param max_person_weeks := 100;\")\n# loading model\nampl$read(\"models/1.1 advertising_campaigns.mod\") # read model located in folder models\n\n# setting data\nampl$setData(\n  data.frame(\n    units = units, \n    cost = cost, \n    reach = reach, \n    min_units = min_units,\n    person_weeks = person_weeks\n  ), 1, \"units\"\n) \n# formulation\nampl$eval(\"var buy{u in units} >= min_units[u];\")\nampl$eval(\"maximize audience: sum {u in units} buy[u] * reach[u];\")\nampl$eval(\"subject to budget: sum {u in units} buy[u] * cost[u] <= p_budget;\")\nampl$eval(\"subject to capacity: sum {u in units} buy[u] * person_weeks[u] <= max_person_weeks;\")\n\nampl$solve()\n\nHiGHS 1.2.2: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.2.2: optimal solution; objective 117.75\n1 simplex iterations\n0 barrier iterations\nabsmipgap=117.75, relmipgap=inf\n\nampl$getVariable(\"buy\")$getValues()\n\n          index0 buy.val\n1 magazine_pages       1\n2      radio_min     395\n3        tv_mins      10\n\nampl$close()"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#amplpy-1",
+    "href": "Books/AMPL/chapter_1.html#amplpy-1",
+    "title": "Chapter 1",
+    "section": "amplpy",
+    "text": "amplpy\n\n\nfrom amplpy import AMPL, modules\nmodules.load() # load all modules\nampl = AMPL() # instantiate AMPL object\nampl.option[\"solver\"] = \"highs\"\nampl.read(\"models/steel_original.mod\") # read model located in folder models\nampl.read_data(\"data/steel_original.dat\") # read dat located in folder models\nampl.solve()\n\nHiGHS 1.5.1: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.5.1: optimal solution; objective 190071.4286\n2 simplex iterations\n0 barrier iterations\n\ndf = ampl.getVariable(\"Make\").getValues()\nprint(df)\n\n   index0    |   Make.val  \n  'bands'    | 3357.1428571428578\n  'coils'    |     500     \n  'plate'    | 3142.8571428571431\n\nampl.close()"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#steel_original.mod",
+    "href": "Books/AMPL/chapter_1.html#steel_original.mod",
+    "title": "Chapter 1",
+    "section": "steel_original.mod",
+    "text": "steel_original.mod\nModel developed in AMPL\n```{ampl}\n\nset PROD; # products\nset STAGE; # stages\n\nparam rate {PROD,STAGE} > 0; # tons per hour in each stage\nparam avail {STAGE} >= 0; # hours available/week in each stage\nparam profit {PROD}; # profit per ton\nparam commit {PROD} >= 0; # lower limit on tons sold in week\nparam market {PROD} >= 0; # upper limit on tons sold in week\nvar Make {p in PROD} >= commit[p], <= market[p]; # tons produced\n\nmaximize Total_Profit: sum {p in PROD} profit[p] * Make[p];\n# Objective: total profits from all products\n\nsubject to Time {s in STAGE}:\nsum {p in PROD} (1/rate[p,s]) * Make[p] <= avail[s];\n\n# In each stage: total of hours used by all\n# products may not exceed hours available\n```"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#steel_original.dat",
+    "href": "Books/AMPL/chapter_1.html#steel_original.dat",
+    "title": "Chapter 1",
+    "section": "steel_original.dat",
+    "text": "steel_original.dat\nData input in AMPL\n```{ampl}\n\nset PROD := bands coils plate;\nset STAGE := reheat roll;\n\nparam rate: reheat roll :=\n  bands 200 200\n  coils 200 140\n  plate 200 160 ;\n\nparam: profit commit market :=\n  bands 25 1000 6000\n  coils 30 500 4000\n  plate 29 750 3500 ;\n\nparam avail := reheat 35 roll 40 ;\n```\n:::"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#d.-lower-bounds-as-constraints.",
+    "href": "Books/AMPL/chapter_1.html#d.-lower-bounds-as-constraints.",
+    "title": "Chapter 1",
+    "section": "d. Lower bounds as constraints.",
+    "text": "d. Lower bounds as constraints.\nIn this exercise we are asked to change the minimum of the tons make for each product, therefore, we required to redeclare the var to delete the lower bound.\n\n\n# import  libraries\nimport pandas as pd\n\n# Loading class and setting solver\nampl = AMPL() # instantiate AMPL object\nampl.option[\"solver\"] = \"highs\"\n\n# Load model and data\nampl.read(\"models/steel_original.mod\") # read model located in folder models\nampl.read_data(\"data/steel_original.dat\") # read dat located in folder models\n\n## Changing in formulation\nampl.eval(\"param shares {PROD};\")\n\n# Creation of a list to input ampl\nshares_list = {\"bands\": 0.4, \"coils\": 0.1, \"plate\": 0.4}\n\n# Inputing the list into the param shares created\nampl.param[\"shares\"] = {PROD: shares for PROD, (shares) in shares_list.items()}\n\n# Redeclare var Make to delete lower bound\nampl.eval(\"redeclare var Make {p in PROD} <= market[p];\")\n\n# Create a new constraint with the lower bound by product\nampl.eval(\"subject to min_shares {j in PROD}: Make[j] >= shares[j] * sum {k in PROD} Make[k];\")\n\n# Solving problem\nampl.solve()\n\nHiGHS 1.5.1: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.5.1: optimal solution; objective 189700\n5 simplex iterations\n0 barrier iterations\n\ndf = ampl.getVariable(\"Make\").getValues()\nprint(df)\n\n   index0    |   Make.val  \n  'bands'    |     3500    \n  'coils'    |     700     \n  'plate'    |     2800    \n\nampl.close()"
+  },
+  {
+    "objectID": "Books/AMPL/chapter_1.html#steel4-model",
+    "href": "Books/AMPL/chapter_1.html#steel4-model",
+    "title": "Chapter 1",
+    "section": "Steel4 model",
+    "text": "Steel4 model\n\namplpysteel_original.modsteel_original.dat\n\n\n\n\nfrom amplpy import AMPL, modules\nmodules.load() # load all modules\nampl = AMPL() # instantiate AMPL object\nampl.option[\"solver\"] = \"highs\"\nampl.read(\"models/steel_original.mod\") # read model located in folder models\nampl.read_data(\"data/steel_original.dat\") # read dat located in folder models\nampl.solve()\n\nHiGHS 1.5.1: \b\b\b\b\b\b\b\b\b\b\b\b\bHiGHS 1.5.1: optimal solution; objective 190071.4286\n2 simplex iterations\n0 barrier iterations\n\ndf = ampl.getVariable(\"Make\").getValues()\nprint(df)\n\n   index0    |   Make.val  \n  'bands'    | 3357.1428571428578\n  'coils'    |     500     \n  'plate'    | 3142.8571428571431\n\nampl.close()\n\n\n\nModel developed in AMPL\n```{ampl}\n\nset PROD; # products\nset STAGE; # stages\n\nparam rate {PROD,STAGE} > 0; # tons per hour in each stage\nparam avail {STAGE} >= 0; # hours available/week in each stage\nparam profit {PROD}; # profit per ton\nparam commit {PROD} >= 0; # lower limit on tons sold in week\nparam market {PROD} >= 0; # upper limit on tons sold in week\nvar Make {p in PROD} >= commit[p], <= market[p]; # tons produced\n\nmaximize Total_Profit: sum {p in PROD} profit[p] * Make[p];\n# Objective: total profits from all products\n\nsubject to Time {s in STAGE}:\nsum {p in PROD} (1/rate[p,s]) * Make[p] <= avail[s];\n\n# In each stage: total of hours used by all\n# products may not exceed hours available\n```\n\n\nData input in AMPL\n```{ampl}\n\nset PROD := bands coils plate;\nset STAGE := reheat roll;\n\nparam rate: reheat roll :=\n  bands 200 200\n  coils 200 140\n  plate 200 160 ;\n\nparam: profit commit market :=\n  bands 25 1000 6000\n  coils 30 500 4000\n  plate 29 750 3500 ;\n\nparam avail := reheat 35 roll 40 ;\n```"
   }
 ]

@@ -1,0 +1,356 @@
+---
+title: Chapter 1 
+description: "Solution to exercises in Chapter 1" 
+categories: ["Linear programming", "R", "AMPL", "python"]
+image: ../image/linear_programming.png
+engine: knitr
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
+---
+
+Hi Folks!
+
+Since my bachelor degree I always wanted to resolved the exercises of AMPL's book,
+In my course I studied with AMPL and in my master I also used AMPL, I find it 
+very easy to get into operation research world!.
+
+Have fun with me during solving some exercises from the book, I have used the API's
+that AMPL is giving us, so some problems are solved using python and others with R.
+
+I tried to keep the original model and data in different files and folders. When
+a model requires to be changed, I do it using the ampl API.
+
+
+## 0. Installing rAMPL and amplpy
+
+### rAMPL
+
+```{r}
+#| eval: false
+renv::install("https://ampl.com/dl/API/rAMPL.tar.gz", repos=NULL, INSTALL_opts=c("--no-multiarch", "--no-staged-install"))
+```
+  
+  
+### amplpy
+In order to use the free license of ampl community, it is required to input the 
+license number after --uuid.
+
+```{{sh}}
+python -m pip install jupyter
+python -m pip install amplpy --upgrade
+python -m amplpy.modules install highs gurobi
+python -m amplpy.modules run amplkey activate --uuid
+python -m amplpy.modules run ampl -vvq
+python -m pip install amplpy
+python -m pip install pandas 
+```
+
+# 1. Optimize advertising campaigns (rAMPL)
+
+The objective of this exercise is to chose the number of units to purchase in 
+each channel to advertise. Let's figure out together how to do it. 
+
+```{r}
+#| warning: false
+#| echo: false
+library(reticulate)
+library(rAMPL)
+library(dplyr)
+library(DT)
+```
+
+Setting a new environment for make the conection through the API with AMPL
+```{r}
+#| echo: false
+env <- new(Environment, "c:/Users/insu803338/Documents/Proyectos/amplide.mswin64/ampl.mswin64/")
+options("scipen"=100, "digits"=4)
+```
+
+## a. Subjetct to budget
+
+```{r}
+
+# creating vectors with information
+units <- c("tv_mins", "magazine_pages")
+cost <- c(20000, 10000)
+reach <- c(1.8, 1)
+min_units <- c(10, 1)
+
+# Loading class and setting solver
+ampl <- new(AMPL, env)
+ampl$setOption("solver","HiGHS") 
+
+ampl$eval("param p_budget := 1000000;")
+# Loading model
+ampl$read("models/1.1 Advertising_campaigns.mod")
+
+# Setting Data
+ampl$setData(
+  data.frame(
+    units = units, 
+    cost = cost, 
+    reach = reach, 
+    min_units = min_units
+  ), 1, "units"
+) 
+# Formulation
+ampl$eval("var buy{u in units} >= min_units[u];")
+ampl$eval("maximize Audience: sum {u in units} buy[u] * reach[u];")
+ampl$eval("subject to budget: sum {u in units} buy[u] * cost[u] <= p_budget;")
+
+ampl$solve()
+print(ampl$getVariable("buy")$getValues())
+
+ampl$close()
+
+```
+
+## b. Adding constraint time needed to build campaign
+
+```{r}
+
+units <- c("tv_mins", "magazine_pages")
+cost <- c(20000, 10000)
+reach <- c(1.8, 1)
+min_units <- c(10, 1)
+person_weeks <- c(1, 3)
+
+# loading class and setting solver
+ampl <- new(AMPL, env)
+ampl$setOption("solver","highs") 
+
+# Adding parameters
+ampl$eval("param p_budget := 1000000;")
+ampl$eval("param max_person_weeks := 100;")
+# loading model
+ampl$read("models/1.1 advertising_campaigns.mod") # read model located in folder models
+
+# setting data
+ampl$setData(
+  data.frame(
+    units = units, 
+    cost = cost, 
+    reach = reach, 
+    min_units = min_units,
+    person_weeks = person_weeks
+  ), 1, "units"
+) 
+# formulation
+ampl$eval("var buy{u in units} >= min_units[u];")
+ampl$eval("maximize audience: sum {u in units} buy[u] * reach[u];")
+ampl$eval("subject to budget: sum {u in units} buy[u] * cost[u] <= p_budget;")
+ampl$eval("subject to capacity: sum {u in units} buy[u] * person_weeks[u] <= max_person_weeks;")
+
+ampl$solve()
+ampl$getVariable("buy")$getValues()
+
+ampl$close()
+
+```
+
+## c. Adding channel radio
+Model keeps the same as previous, but data changes.
+
+```{r}
+
+# Adding channel to data
+units <- c("tv_mins", "magazine_pages", "radio_min")
+cost <- c(20000, 10000, 2000)
+reach <- c(1.8, 1, 0.25)
+min_units <- c(10, 1, 1)
+person_weeks <- c(1, 3, 1/7)
+
+# loading class and setting solver
+ampl <- new(AMPL, env)
+ampl$setOption("solver","HiGHS") 
+
+ampl$eval("param p_budget := 1000000;")
+ampl$eval("param max_person_weeks := 100;")
+# loading model
+ampl$read("models/1.1 advertising_campaigns.mod") # read model located in folder models
+
+# setting data
+ampl$setData(
+  data.frame(
+    units = units, 
+    cost = cost, 
+    reach = reach, 
+    min_units = min_units,
+    person_weeks = person_weeks
+  ), 1, "units"
+) 
+# formulation
+ampl$eval("var buy{u in units} >= min_units[u];")
+ampl$eval("maximize audience: sum {u in units} buy[u] * reach[u];")
+ampl$eval("subject to budget: sum {u in units} buy[u] * cost[u] <= p_budget;")
+ampl$eval("subject to capacity: sum {u in units} buy[u] * person_weeks[u] <= max_person_weeks;")
+
+ampl$solve()
+ampl$getVariable("buy")$getValues()
+
+ampl$close()
+
+```
+
+
+# 2. Steel model with changes (amplpy) 
+
+Before solving execises, let's review steel4 model explained in the chapter. 
+
+## Steel4 model
+
+::: {.panel-tabset}
+
+## amplpy
+
+```{python}
+
+from amplpy import AMPL, modules
+modules.load() # load all modules
+ampl = AMPL() # instantiate AMPL object
+ampl.option["solver"] = "highs"
+ampl.read("models/steel_original.mod") # read model located in folder models
+ampl.read_data("data/steel_original.dat") # read dat located in folder models
+ampl.solve()
+df = ampl.getVariable("Make").getValues()
+print(df)
+ampl.close()
+
+```
+
+## steel_original.mod
+
+Model developed in `AMPL`
+
+```{{AMPL}}
+
+set PROD; # products
+set STAGE; # stages
+
+param rate {PROD,STAGE} > 0; # tons per hour in each stage
+param avail {STAGE} >= 0; # hours available/week in each stage
+param profit {PROD}; # profit per ton
+param commit {PROD} >= 0; # lower limit on tons sold in week
+param market {PROD} >= 0; # upper limit on tons sold in week
+var Make {p in PROD} >= commit[p], <= market[p]; # tons produced
+
+maximize Total_Profit: sum {p in PROD} profit[p] * Make[p];
+# Objective: total profits from all products
+
+subject to Time {s in STAGE}:
+sum {p in PROD} (1/rate[p,s]) * Make[p] <= avail[s];
+
+# In each stage: total of hours used by all
+# products may not exceed hours available
+```
+
+## steel_original.dat
+
+Data input in `AMPL`
+```{{AMPL}}
+
+set PROD := bands coils plate;
+set STAGE := reheat roll;
+
+param rate: reheat roll :=
+  bands 200 200
+  coils 200 140
+  plate 200 160 ;
+
+param: profit commit market :=
+  bands 25 1000 6000
+  coils 30 500 4000
+  plate 29 750 3500 ;
+
+param avail := reheat 35 roll 40 ;
+```
+
+:::
+
+## a. Change constrain to equal
+As the objective functions is a maximization, the problem would try to achive
+the equality as their is not another constraint. Therefore, changing the equality
+from `<=` to `=` does not change the result.
+
+```{{AMPL}}
+subject to Time {s in STAGE}:
+sum {p in PROD} (1/rate[p,s]) * Make[p] = avail[s];
+```
+
+## b. Max total weigth contraint
+Adding a new constraint to put a upper bound to the variable Make.
+
+```{python}
+
+# Loading class and setting solver
+ampl = AMPL() # instantiate AMPL object
+ampl.option["solver"] = "highs"
+
+# Load model and data
+ampl.read("models/steel_original.mod") # read model located in folder models
+ampl.read_data("data/steel_original.dat") # read dat located in folder models
+
+## Adding new constraint to limit tons manufactured.
+ampl.eval("param max_weight := 6500;")
+ampl.eval("subject to MaxWeight: sum {p in PROD} Make[p] <= max_weight;")
+
+# Solving problem
+ampl.solve()
+df = ampl.getVariable("Make").getValues()
+print(df)
+ampl.close()
+
+```
+
+## c. Produce as many tons as possible
+
+The idea behind increase number of tons is to keep the objective functions, nevertheless,
+without the params profit.
+
+```{{AMPL}}
+
+maximize tons: sum {p in PROD} Make[p];
+# Objective: total profits from all products
+
+```
+
+## d. Lower bounds as constraints.
+In this exercise we are asked to change the minimum of the tons make for each 
+product, therefore, we required to redeclare the var to delete the lower bound. 
+
+```{python}
+
+# import  libraries
+import pandas as pd
+
+# Loading class and setting solver
+ampl = AMPL() # instantiate AMPL object
+ampl.option["solver"] = "highs"
+
+# Load model and data
+ampl.read("models/steel_original.mod") # read model located in folder models
+ampl.read_data("data/steel_original.dat") # read dat located in folder models
+
+## Changing in formulation
+ampl.eval("param shares {PROD};")
+
+# Creation of a list to input ampl
+shares_list = {"bands": 0.4, "coils": 0.1, "plate": 0.4}
+
+# Inputing the list into the param shares created
+ampl.param["shares"] = {PROD: shares for PROD, (shares) in shares_list.items()}
+
+# Redeclare var Make to delete lower bound
+ampl.eval("redeclare var Make {p in PROD} <= market[p];")
+
+# Create a new constraint with the lower bound by product
+ampl.eval("subject to min_shares {j in PROD}: Make[j] >= shares[j] * sum {k in PROD} Make[k];")
+
+# Solving problem
+ampl.solve()
+df = ampl.getVariable("Make").getValues()
+print(df)
+ampl.close()
+
+```

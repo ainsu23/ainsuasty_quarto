@@ -9,6 +9,8 @@ comments:
 format: 
   html:
     css: css/blogs.css
+execute: 
+  cache: true
 ---
 
 Have you ever asked, How to optimize your commercial process with Mathematical
@@ -30,7 +32,7 @@ installed.
 As long as I, used `renv` for building my blog I use the following code:
 ```{r}
 #| eval: false
-
+renv::install("Rcpp", type="source")
 renv::install("https://ampl.com/dl/API/rAMPL.tar.gz", repos=NULL, INSTALL_opts=c("--no-multiarch", "--no-staged-install"))
 ```
 
