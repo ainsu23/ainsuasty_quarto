@@ -1,0 +1,8 @@
+---
+title: "Mastering Shiny"
+description: "Solution to excercises in Mastering Shiny" 
+categories: ["Solution", "Dashboards", "Shiny"]
+comments: 
+  utterances: 
+    repo: ainsu23/ainsuasty_quarto
+---
