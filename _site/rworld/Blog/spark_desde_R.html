@@ -308,8 +308,8 @@ ga('send', {
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../../data/u.data"</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(line, <span class="fu">c</span>(<span class="st">"user id"</span>,<span class="st">"item id"</span>,<span class="st">"rating"</span>,<span class="st">"timestamp"</span>), <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(rating) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source: spark&lt;?&gt; [?? x 2]
   rating     n
@@ -332,9 +332,9 @@ ga('send', {
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">"id"</span>, <span class="st">"name"</span>, <span class="st">"age"</span>, <span class="st">"num_friends"</span>)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">num_friends =</span> <span class="fu">round</span>(<span class="fu">mean</span>(num_friends), <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(age)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(age) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">num_friends =</span> <span class="fu">round</span>(<span class="fu">mean</span>(num_friends), <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(age)</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>sp_fake_friends</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:     spark&lt;?&gt; [?? x 2]
@@ -406,12 +406,12 @@ ga('send', {
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">input_col =</span> <span class="st">"word_list"</span>,</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">output_col =</span> <span class="st">"wo_stop_words"</span></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">palabra =</span> <span class="fu">explode</span>(wo_stop_words)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(palabra <span class="sc">!=</span> <span class="st">""</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(palabra) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(palabra <span class="sc">!=</span> <span class="st">"�"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">palabra =</span> <span class="fu">explode</span>(wo_stop_words)) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(palabra <span class="sc">!=</span> <span class="st">""</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(palabra) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(palabra <span class="sc">!=</span> <span class="st">"�"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">%&gt;%</span> </span>
 <span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:     spark&lt;?&gt; [?? x 2]
@@ -502,16 +502,16 @@ ga('send', {
 <pre><code># Source: spark&lt;?&gt; [?? x 5]
        x     y features  label prediction
    &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;    &lt;dbl&gt;      &lt;dbl&gt;
- 1 -3.74  3.75 &lt;dbl [1]&gt;  3.75       3.72
- 2 -2.89  2.89 &lt;dbl [1]&gt;  2.89       2.88
- 3 -2.54  2.39 &lt;dbl [1]&gt;  2.39       2.53
- 4 -2.45  2.44 &lt;dbl [1]&gt;  2.44       2.44
- 5 -2.29  2.35 &lt;dbl [1]&gt;  2.35       2.28
- 6 -2.12  1.9  &lt;dbl [1]&gt;  1.9        2.11
- 7 -2.06  1.95 &lt;dbl [1]&gt;  1.95       2.05
- 8 -2     2.02 &lt;dbl [1]&gt;  2.02       1.99
- 9 -1.97  1.85 &lt;dbl [1]&gt;  1.85       1.96
-10 -1.91  1.86 &lt;dbl [1]&gt;  1.86       1.90
+ 1 -3.54  3.44 &lt;dbl [1]&gt;  3.44       3.53
+ 2 -2.45  2.44 &lt;dbl [1]&gt;  2.44       2.44
+ 3 -2.22  2.15 &lt;dbl [1]&gt;  2.15       2.21
+ 4 -2.17  2.19 &lt;dbl [1]&gt;  2.19       2.16
+ 5 -2     2.02 &lt;dbl [1]&gt;  2.02       1.99
+ 6 -1.94  1.94 &lt;dbl [1]&gt;  1.94       1.93
+ 7 -1.91  1.83 &lt;dbl [1]&gt;  1.83       1.90
+ 8 -1.91  1.86 &lt;dbl [1]&gt;  1.86       1.90
+ 9 -1.91  1.95 &lt;dbl [1]&gt;  1.95       1.90
+10 -1.83  1.68 &lt;dbl [1]&gt;  1.68       1.82
 # … with more rows</code></pre>
 </div>
 </div>
