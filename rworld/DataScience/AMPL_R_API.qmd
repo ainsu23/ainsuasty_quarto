@@ -45,7 +45,7 @@ library(DT)
 
 ```{r}
 #| echo: false
-env <- new(Environment, "c:/Users/insu803338/Documents/Proyectos/amplide.mswin64/ampl.mswin64/")
+env <- new(Environment, "c:/Users/insu803338/Documents/Proyectos/AMPL")
 options("scipen"=100, "digits"=4)
 ```
 
