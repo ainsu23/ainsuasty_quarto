@@ -1,8 +1,8 @@
-ampl-module-base==20230801
-ampl-module-gurobi==20230728
-ampl-module-highs==20230728
-amplpy==0.11.2
-ampltools==0.5.6
+ampl-module-base==20231109
+ampl-module-gurobi==20231109
+ampl-module-highs==20231109
+amplpy==0.8.6
+ampltools==0.5.0
 anyio==3.6.2
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
