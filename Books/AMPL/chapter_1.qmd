@@ -40,7 +40,7 @@ license number after --uuid.
 python -m pip install jupyter
 python -m pip install amplpy --upgrade
 python -m amplpy.modules install highs gurobi
-python -m amplpy.modules run amplkey activate --uuid
+python -m amplpy.modules run amplkey activate --UUID
 python -m amplpy.modules run ampl -vvq
 python -m pip install amplpy
 python -m pip install pandas 
@@ -215,6 +215,7 @@ ampl.read_data("data/steel_original.dat") # read dat located in folder models
 ampl.solve()
 df = ampl.getVariable("Make").getValues()
 print(df)
+ampl.reset()
 ampl.close()
 
 ```
