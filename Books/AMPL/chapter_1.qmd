@@ -2,7 +2,7 @@
 title: Chapter 1 
 description: "Solution to exercises in Chapter 1" 
 categories: ["Linear programming", "R", "AMPL", "python"]
-image: ../image/linear_programming.png
+image: ../../image/linear_programming.png
 engine: knitr
 comments: 
   utterances: 
