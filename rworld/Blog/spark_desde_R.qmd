@@ -3,6 +3,8 @@ title: "Uso de Spark desde R"
 description: "Big data con Spark y R" 
 lang: es
 categories: ["Spark", "R6Class", "Text mining"]
+execute: 
+  freeze: auto
 comments: 
   utterances: 
     repo: ainsu23/ainsuasty_quarto
@@ -92,8 +94,8 @@ sparklyr::spark_read_text(
   "../../data/u.data"
 ) %>% 
   separate(line, c("user id","item id","rating","timestamp"), sep = "\t") %>% 
-  group_by(rating) %>% 
-  count()
+  dplyr::group_by(rating) %>% 
+  dplyr::count()
 ```
 
 ## `summarise, arrange`
@@ -109,9 +111,9 @@ sp_fake_friends <- sparklyr::spark_read_csv(
   header = FALSE,
   columns = c("id", "name", "age", "num_friends")
 ) %>% 
-  group_by(age) %>% 
-  summarise(num_friends = round(mean(num_friends), 1)) %>% 
-  arrange(age)
+  dplyr::group_by(age) %>% 
+  dplyr::summarise(num_friends = round(mean(num_friends), 1)) %>% 
+  dplyr::arrange(age)
 sp_fake_friends
 ```
 
@@ -158,12 +160,12 @@ sparklyr::spark_read_text(
     input_col = "word_list",
     output_col = "wo_stop_words"
   ) %>% 
-  mutate(palabra = explode(wo_stop_words)) %>% 
-  filter(palabra != "") %>% 
-  group_by(palabra) %>% 
-  count() %>% 
-  filter(palabra != "�") %>% 
-  arrange(desc(n)) %>% 
+  dplyr::mutate(palabra = explode(wo_stop_words)) %>% 
+  dplyr::filter(palabra != "") %>% 
+  dplyr::group_by(palabra) %>% 
+  dplyr::count() %>% 
+  dplyr::filter(palabra != "�") %>% 
+  dplyr::arrange(desc(n)) %>% 
   head(10)
 ```
 

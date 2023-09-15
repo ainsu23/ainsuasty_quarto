@@ -1,5 +1,6 @@
 ---
 title: "Mastering Shiny"
+image: ../image/shiny.png
 description: "Solution to excercises in Mastering Shiny" 
 categories: ["Solution", "Dashboards", "Shiny"]
 comments: 

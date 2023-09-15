@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 09bd9cea-7784-488a-80b2-b65d45053169
+      url: 'https://ainsuasty.com'
