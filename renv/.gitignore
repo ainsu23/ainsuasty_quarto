@@ -1,6 +1,7 @@
-library/
+sandbox/
 local/
+python/
+library/
 cellar/
 lock/
-python/
 staging/

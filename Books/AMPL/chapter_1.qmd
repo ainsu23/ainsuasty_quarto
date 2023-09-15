@@ -2,7 +2,7 @@
 title: Chapter 1 
 description: "Solution to exercises in Chapter 1" 
 categories: ["Linear programming", "R", "AMPL", "python"]
-image: ../image/linear_programming.png
+image: ../../image/linear_programming.png
 engine: knitr
 comments: 
   utterances: 
@@ -40,7 +40,7 @@ license number after --uuid.
 python -m pip install jupyter
 python -m pip install amplpy --upgrade
 python -m amplpy.modules install highs gurobi
-python -m amplpy.modules run amplkey activate --uuid
+python -m amplpy.modules run amplkey activate --UUID
 python -m amplpy.modules run ampl -vvq
 python -m pip install amplpy
 python -m pip install pandas 
@@ -63,7 +63,7 @@ library(DT)
 Setting a new environment for make the conection through the API with AMPL
 ```{r}
 #| echo: false
-env <- new(Environment, "c:/Users/insu803338/Documents/Proyectos/amplide.mswin64/ampl.mswin64/")
+env <- new(Environment, "c:/Users/insu803338/Documents/Proyectos/AMPL")
 options("scipen"=100, "digits"=4)
 ```
 
@@ -215,6 +215,7 @@ ampl.read_data("data/steel_original.dat") # read dat located in folder models
 ampl.solve()
 df = ampl.getVariable("Make").getValues()
 print(df)
+ampl.reset()
 ampl.close()
 
 ```
