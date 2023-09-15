@@ -323,10 +323,10 @@ ga('send', {
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>ampl<span class="sc">$</span><span class="fu">solve</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HiGHS 1.2.2: HiGHS 1.2.2: optimal solution; objective 98
+<pre><code>HiGHS 1.5.3: HiGHS 1.5.3: optimal solution; objective 98
 0 simplex iterations
 0 barrier iterations
-absmipgap=98, relmipgap=inf</code></pre>
+ </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ampl<span class="sc">$</span><span class="fu">getVariable</span>(<span class="st">"buy"</span>)<span class="sc">$</span><span class="fu">getValues</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -374,10 +374,10 @@ absmipgap=98, relmipgap=inf</code></pre>
 <span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>ampl<span class="sc">$</span><span class="fu">solve</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HiGHS 1.2.2: HiGHS 1.2.2: optimal solution; objective 92
+<pre><code>HiGHS 1.5.3: HiGHS 1.5.3: optimal solution; objective 92
 2 simplex iterations
 0 barrier iterations
-absmipgap=92, relmipgap=inf</code></pre>
+ </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ampl<span class="sc">$</span><span class="fu">getVariable</span>(<span class="st">"buy"</span>)<span class="sc">$</span><span class="fu">getValues</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -426,10 +426,10 @@ absmipgap=92, relmipgap=inf</code></pre>
 <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>ampl<span class="sc">$</span><span class="fu">solve</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HiGHS 1.2.2: HiGHS 1.2.2: optimal solution; objective 117.75
+<pre><code>HiGHS 1.5.3: HiGHS 1.5.3: optimal solution; objective 117.75
 1 simplex iterations
 0 barrier iterations
-absmipgap=117.75, relmipgap=inf</code></pre>
+ </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ampl<span class="sc">$</span><span class="fu">getVariable</span>(<span class="st">"buy"</span>)<span class="sc">$</span><span class="fu">getValues</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -461,17 +461,18 @@ absmipgap=117.75, relmipgap=inf</code></pre>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ampl.read_data(<span class="st">"data/steel_original.dat"</span>) <span class="co"># read dat located in folder models</span></span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>ampl.solve()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HiGHS 1.5.1: HiGHS 1.5.1: optimal solution; objective 190071.4286
+<pre><code>HiGHS 1.5.3: HiGHS 1.5.3: optimal solution; objective 190071.4286
 2 simplex iterations
-0 barrier iterations</code></pre>
+0 barrier iterations
+ </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> ampl.getVariable(<span class="st">"Make"</span>).getValues()</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   index0    |   Make.val  
-  'bands'    | 3357.1428571428578
+  'bands'    | 3357.142857142858
   'coils'    |     500     
-  'plate'    | 3142.8571428571431</code></pre>
+  'plate'    | 3142.857142857143</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ampl.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -551,9 +552,10 @@ absmipgap=117.75, relmipgap=inf</code></pre>
 <span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Solving problem</span></span>
 <span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>ampl.solve()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HiGHS 1.5.1: HiGHS 1.5.1: optimal solution; objective 183791.6667
+<pre><code>HiGHS 1.5.3: HiGHS 1.5.3: optimal solution; objective 183791.6667
 3 simplex iterations
-0 barrier iterations</code></pre>
+0 barrier iterations
+ </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> ampl.getVariable(<span class="st">"Make"</span>).getValues()</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -610,9 +612,10 @@ absmipgap=117.75, relmipgap=inf</code></pre>
 <span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Solving problem</span></span>
 <span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>ampl.solve()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HiGHS 1.5.1: HiGHS 1.5.1: optimal solution; objective 189700
+<pre><code>HiGHS 1.5.3: HiGHS 1.5.3: optimal solution; objective 189700
 5 simplex iterations
-0 barrier iterations</code></pre>
+0 barrier iterations
+ </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> ampl.getVariable(<span class="st">"Make"</span>).getValues()</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
